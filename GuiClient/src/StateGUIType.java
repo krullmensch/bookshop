@@ -1,3 +1,0 @@
-public enum StateGUIType {
-    CONNECTION, SIGNIN, REGISTRATION, SEARCH, PRODUCT
-}

@@ -15,19 +15,21 @@ public class Shopclient extends Client {
     public void processMessage(String message) {
         String[] protokoll = message.split(":");
         switch (protokoll[0]){
-            case "CONNECTION":
-                gui.printOut("Connection sucessful!");
-                state.setStateType(StateGUIType.CONNECTION);
+            case "VERBUNDEN":
+                state = StateGUI.ANMELDUNG;
+                gui.enableAnmeldung();
+                gui.printOut("Verbindung erfolgreich. Du kannst dich jetzt anmelden!");
                 break;
-            case "ANMELDEBESTÄTIGUNG":
-                state.setStateType(StateGUIType.SEARCH);
-                gui.refreshInterface();
+            case "ANMOK":
+                state = StateGUI.SUCHE;
+                gui.showMessageDialog("Anmeldung erfolgreich!");
+                //gui.displaySuchen
                 break;
-            case "REGESTRIERUNGSBESTÄTIGUNG":
-                state.setStateType(StateGUIType.SIGNIN);
-                gui.refreshInterface();
+            case "REGOK":
+                state = StateGUI.ANMELDUNG;
+                gui.displayRegistrierung();
                 break;
-            case "RESULT":
+            case "ERGEBNIS":
 
 
 

@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ShopGUI">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Anmeldung">
   <grid id="27dc6" binding="panel1" layout-manager="CardLayout" hgap="0" vgap="0">
     <constraints>
       <xy x="20" y="20" width="650" height="400"/>
     </constraints>
     <properties>
-      <minimumSize width="399" height="100"/>
+      <minimumSize width="480" height="360"/>
     </properties>
     <border type="none" title-position="1"/>
     <children>
-      <grid id="1c2e2" binding="panelSignin" layout-manager="BorderLayout" hgap="0" vgap="0">
+      <grid id="1c2e2" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints>
           <card name="Card1"/>
         </constraints>
         <properties>
+          <minimumSize width="480" height="360"/>
+          <preferredSize width="480" height="360"/>
           <toolTipText value=""/>
+          <visible value="true"/>
         </properties>
-        <border type="none"/>
+        <border type="none">
+          <font/>
+        </border>
         <children>
           <grid id="d8f1a" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
             <constraints border-constraint="North"/>
@@ -53,10 +58,10 @@
               <hspacer id="d3384">
                 <constraints/>
               </hspacer>
-              <component id="e3fbc" class="javax.swing.JButton" binding="btnConnect">
+              <component id="e3fbc" class="javax.swing.JButton" binding="btnVerbinden">
                 <constraints/>
                 <properties>
-                  <text value="Connect"/>
+                  <text value="Verbinden"/>
                 </properties>
               </component>
             </children>
@@ -85,7 +90,7 @@
                     <properties/>
                     <border type="none"/>
                     <children>
-                      <component id="40a20" class="javax.swing.JPasswordField" binding="txtPassword">
+                      <component id="40a20" class="javax.swing.JPasswordField" binding="txtPasswort">
                         <constraints>
                           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                             <preferred-size width="150" height="-1"/>
@@ -98,10 +103,10 @@
                           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <text value="Password"/>
+                          <text value="Passwort"/>
                         </properties>
                       </component>
-                      <component id="5076e" class="javax.swing.JTextField" binding="txtUsername">
+                      <component id="5076e" class="javax.swing.JTextField" binding="txtBenutzer">
                         <constraints>
                           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                             <preferred-size width="150" height="-1"/>
@@ -114,17 +119,17 @@
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <text value="Username"/>
+                          <text value="Benutzername"/>
                         </properties>
                       </component>
-                      <component id="3ee33" class="javax.swing.JButton" binding="btnSignin">
+                      <component id="3ee33" class="javax.swing.JButton" binding="btnAnmelden">
                         <constraints>
                           <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <enabled value="false"/>
                           <focusPainted value="true"/>
-                          <text value="Sign in"/>
+                          <text value="Anmeldung"/>
                           <visible value="true"/>
                         </properties>
                       </component>
@@ -143,22 +148,22 @@
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <text value="You do not have an account?"/>
+                          <text value="Du hast noch keinen Account?"/>
                         </properties>
                       </component>
-                      <component id="c01c2" class="javax.swing.JButton" binding="btnRegister">
+                      <component id="c01c2" class="javax.swing.JButton" binding="btnRegistrieren">
                         <constraints>
                           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <enabled value="false"/>
                           <horizontalAlignment value="0"/>
-                          <text value="Register"/>
+                          <text value="Registrieren"/>
                         </properties>
                       </component>
                     </children>
                   </grid>
-                  <grid id="8a1a9" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                  <grid id="8a1a9" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                     <margin top="0" left="0" bottom="0" right="0"/>
                     <constraints>
                       <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -166,14 +171,14 @@
                     <properties/>
                     <border type="none"/>
                     <children>
-                      <component id="8e846" class="javax.swing.JTextArea" binding="txtOutStart">
+                      <component id="8e846" class="javax.swing.JTextArea" binding="txtOut">
                         <constraints>
                           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
                             <preferred-size width="150" height="50"/>
                           </grid>
                         </constraints>
                         <properties>
-                          <text value="Welcome, please connect to our shop by entering a Server IP and Server Port!"/>
+                          <text value="Verbinde dich mit unserem Buchshop, &#10;indem du eine Server IP und einen Server Port eigibst!"/>
                         </properties>
                       </component>
                       <hspacer id="aefb6">
@@ -186,6 +191,11 @@
                           <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                       </hspacer>
+                      <vspacer id="7c981">
+                        <constraints>
+                          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                      </vspacer>
                     </children>
                   </grid>
                 </children>
@@ -193,33 +203,6 @@
             </children>
           </grid>
         </children>
-      </grid>
-      <grid id="8f288" binding="panelSearch" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="0" left="0" bottom="0" right="0"/>
-        <constraints>
-          <card name="Card2"/>
-        </constraints>
-        <properties/>
-        <border type="none"/>
-        <children/>
-      </grid>
-      <grid id="e7bb5" binding="panelProduct" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="0" left="0" bottom="0" right="0"/>
-        <constraints>
-          <card name="Card3"/>
-        </constraints>
-        <properties/>
-        <border type="none"/>
-        <children/>
-      </grid>
-      <grid id="22ecd" binding="panelRegistration" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="0" left="0" bottom="0" right="0"/>
-        <constraints>
-          <card name="Card4"/>
-        </constraints>
-        <properties/>
-        <border type="none"/>
-        <children/>
       </grid>
     </children>
   </grid>

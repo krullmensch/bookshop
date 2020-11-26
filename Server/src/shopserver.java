@@ -8,7 +8,7 @@ public class shopserver extends Server {
 
     @Override
     public void processNewConnection(String clientIP, int clientPort) {
-        System.out.println("Kunde mit IP" + clientIP + "über Port" + clientPort + "verbunden!");
+        System.out.println("Kunde mit IP " + clientIP + " über Port " + clientPort + " verbunden!");
     }
 
     @Override
@@ -18,6 +18,12 @@ public class shopserver extends Server {
 
     @Override
     public void processClosingConnection(String clientIP, int clientPort) {
-        System.out.println("Kunde mit IP" + clientIP + "über Port" + clientPort + "getrennt!");
+        System.out.println("Kunde mit IP " + clientIP + " über Port " + clientPort + " getrennt!");
+    }
+
+    public static void main(String[] args) {
+        new shopserver(5555);
+        System.out.println("Server gestartet auf Port 5555");
+        System.out.println("Warten auf Verbindungen");
     }
 }

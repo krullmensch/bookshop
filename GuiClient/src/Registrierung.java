@@ -1,10 +1,16 @@
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Registrierung extends ShopGUI {
+public class Registrierung extends JFrame {
+
+    private ShopGUI gui;
+    private Shopclient client;
+    private StateGUI state;
 
     private JPanel panel1;
-    JFrame frame;
 
+    //components
     private JTextField txtEmail;
     private JTextField txtTel;
     private JButton btnSendReg;
@@ -19,28 +25,35 @@ public class Registrierung extends ShopGUI {
     private JComboBox cBoxGeschlecht;
     private JTextField txtGeburtstag;
 
-    public Registrierung(){
+    public Registrierung(ShopGUI gui, Shopclient shopclient, StateGUI state){
+        this.gui = gui;
+        this.state = state;
+        this.client = shopclient;
+
         initialise();
+
+        btnSendReg.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gui.displayAnmeldung();
+            }
+        });
     }
 
     private void initialise() {
-        frame = new JFrame("Bookshop");
-        frame.setContentPane(panel1);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
+        setTitle("Registrierung");
+        setContentPane(panel1);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pack();
+        setVisible(true);
     }
 
-    @Override
     public void showMessageDialog(String msg){
-        JOptionPane.showMessageDialog(null, "Anmeldung erflogreich!");
+        JOptionPane.showMessageDialog(null, "msg");
     }
 
-    public void close(){
-        frame.dispose();
-    }
 
-    public void display(){
-        frame.setVisible(true);
+    public void printOut(String out){
+
     }
 }

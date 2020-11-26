@@ -1,34 +1,37 @@
 public class ShopGUI {
 
-    protected StateGUI state;
-    protected ShopGUI gui;
-    protected Shopclient client;
+    private StateGUI state;
+    private Shopclient client;
 
     private Anmeldung anmeldung;
     private Registrierung registrierung;
 
     public ShopGUI() {
-        //this.gui = gui;
-
-        anmeldung = new Anmeldung();
+        anmeldung = new Anmeldung(this, client, state);
 
     }
 
 
     public void displayRegistrierung() {
-        anmeldung.close();
-        registrierung = new Registrierung();
-        registrierung.display();
+        state = StateGUI.REGISTRIERUNG;
+        anmeldung.dispose();
+        registrierung = new Registrierung(this, client, state);
+    }
+
+    public void displayAnmeldung(){
+        state = StateGUI.ANMELDUNG;
+        registrierung.dispose();
+        anmeldung = new Anmeldung(this, client, state);
     }
 
 
     public void showMessageDialog(String out) {
         switch (state) {
             case ANMELDUNG:
-                anmeldung.printOut(out);
+                anmeldung.showMessageDialog(out);
                 break;
             case REGISTRIERUNG:
-                registrierung.printOut(out);
+                registrierung.showMessageDialog(out);
                 break;
         }
     }
@@ -50,7 +53,7 @@ public class ShopGUI {
     }
 
     public static void main(String[] args) {
-        ShopGUI w = new ShopGUI();
+        ShopGUI s = new ShopGUI();
 
 
     }

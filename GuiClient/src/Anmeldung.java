@@ -3,9 +3,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class Anmeldung extends ShopGUI {
+public class Anmeldung extends JFrame {
 
-    private JFrame frame;
+    private ShopGUI gui;
+    private Shopclient client;
+    private StateGUI state;
+
     private JPanel panel1;
 
     //Components
@@ -18,7 +21,12 @@ public class Anmeldung extends ShopGUI {
     private JButton btnVerbinden;
     private JTextArea txtOut;
 
-    public Anmeldung(){
+
+    public Anmeldung(ShopGUI gui, Shopclient shopclient, StateGUI state){
+        this.gui = gui;
+        this.state = state;
+        this.client = shopclient;
+
         initialise();
 
         btnVerbinden.addActionListener(new ActionListener() {
@@ -31,43 +39,47 @@ public class Anmeldung extends ShopGUI {
         btnAnmelden.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String msg = "ANMELDUNG:" + txtBenutzer.getText() + txtPasswort.getName();
-                client.send(msg);
+                if(txtBenutzer.getText().equals("") && txtPasswort.getPassword().equals("")) {
+                    printOut("Gebe deinen Benutzernamen und Passwort ein, um dich anzumelden!");
+                }else if(txtBenutzer.getText().equals("")) {
+                    printOut("Du hast vergessen einen Benutzernamen einzugeben!");
+                }else if(txtPasswort.getPassword().equals("")){
+                    printOut("Ohne Passwort gehts nicht!");
+                }else {
+                    String msg = "ANMELDUNG:" + txtBenutzer.getText() + txtPasswort.getPassword();
+                    client.send(msg);
+                }
+            }
+        });
+        btnRegistrieren.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gui.displayRegistrierung();
             }
         });
     }
 
     private void initialise() {
-        frame = new JFrame("Bookshop");
-        frame.setContentPane(panel1);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
+        setTitle("Anmeldung");
+        setContentPane(panel1);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pack();
+        setVisible(true);
     }
 
-    @Override
+
     public void showMessageDialog(String msg){
-        JOptionPane.showMessageDialog(null, "Anmeldung erflogreich!");
+        JOptionPane.showMessageDialog(null, msg);
     }
 
-    @Override
     public void printOut (String msg) {
         txtOut.setText(msg);
 
     }
 
-    @Override
     public void enableAnmeldung() {
         btnAnmelden.setEnabled(true);
         btnRegistrieren.setEnabled(true);
-    }
-
-    public void close(){
-        frame.dispose();
-    }
-
-    public void display(){
-        frame.setVisible(true);
     }
 
 

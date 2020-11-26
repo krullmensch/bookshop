@@ -1,6 +1,4 @@
-import netzklassen.Server;
 import java.util.HashMap;
-
 
 public class Shopserver extends Server {
 

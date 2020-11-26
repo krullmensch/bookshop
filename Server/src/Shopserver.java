@@ -1,3 +1,4 @@
+import netzklassen.Server;
 import java.util.HashMap;
 
 public class Shopserver extends Server {
@@ -13,7 +14,7 @@ public class Shopserver extends Server {
         System.out.println("Verbindung mit IP " + clientIP + " über Port " + clientPort + " aufgebaut!");
 
         aktVerbindungen.put(clientIP, clientPort);
-        //send(clientIP, clientPort, "VERBUNDEN");
+        send(clientIP, clientPort, "VERBUNDEN");
         System.out.println(aktVerbindungen);
     }
 

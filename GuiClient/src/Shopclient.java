@@ -1,3 +1,5 @@
+import netzklassen.Client;
+
 public class Shopclient extends Client {
 
     private ShopGUI gui;

@@ -52,7 +52,7 @@
               <component id="5a2f" class="javax.swing.JTextField" binding="txtServerPort">
                 <constraints/>
                 <properties>
-                  <text value="9999"/>
+                  <text value="5555"/>
                 </properties>
               </component>
               <hspacer id="d3384">
@@ -156,7 +156,7 @@
                           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <enabled value="true"/>
+                          <enabled value="false"/>
                           <horizontalAlignment value="0"/>
                           <text value="Registrieren"/>
                         </properties>

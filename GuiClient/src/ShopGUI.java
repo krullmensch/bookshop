@@ -7,21 +7,34 @@ public class ShopGUI {
     private Registrierung registrierung;
 
     public ShopGUI() {
-        anmeldung = new Anmeldung(this, client, state);
+        state = StateGUI.VERBINDUNG;
+        anmeldung = new Anmeldung(this);
 
+    }
+
+    public void referenceClient(Shopclient c){
+        client = c;
+    }
+
+    public StateGUI getState(){
+        return state;
+    }
+
+    public void changeState(StateGUI s){
+        state = s;
     }
 
 
     public void displayRegistrierung() {
         state = StateGUI.REGISTRIERUNG;
         anmeldung.dispose();
-        registrierung = new Registrierung(this, client, state);
+        registrierung = new Registrierung(this, client);
     }
 
     public void displayAnmeldung(){
         state = StateGUI.ANMELDUNG;
         registrierung.dispose();
-        anmeldung = new Anmeldung(this, client, state);
+        anmeldung = new Anmeldung(this);
     }
 
 

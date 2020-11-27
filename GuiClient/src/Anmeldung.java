@@ -7,7 +7,6 @@ public class Anmeldung extends JFrame {
 
     private ShopGUI gui;
     private Shopclient client;
-    private StateGUI state;
 
     private JPanel panel1;
 
@@ -22,31 +21,29 @@ public class Anmeldung extends JFrame {
     private JTextArea txtOut;
 
 
-    public Anmeldung(ShopGUI gui, Shopclient shopclient, StateGUI state){
+    public Anmeldung(ShopGUI gui){
         this.gui = gui;
-        this.state = state;
-        this.client = shopclient;
 
         initialise();
 
         btnVerbinden.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                client = new Shopclient(txtServerIP.getText(), Integer.parseInt(txtServerPort.getText()), gui, state);
+                client = new Shopclient(txtServerIP.getText(), Integer.parseInt(txtServerPort.getText()), gui);
+                gui.referenceClient(client); //Erst hier wird eine Objekt der Klasse ShopClient erstellt
 
             }
         });
+
         btnAnmelden.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(txtBenutzer.getText().equals("") && txtPasswort.getPassword().equals("")) {
-                    printOut("Gebe deinen Benutzernamen und Passwort ein, um dich anzumelden!");
-                }else if(txtBenutzer.getText().equals("")) {
-                    printOut("Du hast vergessen einen Benutzernamen einzugeben!");
-                }else if(txtPasswort.getPassword().equals("")){
-                    printOut("Ohne Passwort gehts nicht!");
-                }else {
-                    String msg = "ANMELDUNG:" + txtBenutzer.getText() + txtPasswort.getPassword();
+                if(checkFields()) {
+                    String passwort = "";
+                    for(int i = 0; i < txtPasswort.getPassword().length; i++){
+                        passwort = passwort + txtPasswort.getPassword()[i];
+                    }
+                    String msg = "ANMELDUNG:" + txtBenutzer.getText() + ":" + passwort;
                     client.send(msg);
                 }
             }
@@ -65,6 +62,20 @@ public class Anmeldung extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
+    }
+
+    private Boolean checkFields(){
+        if(txtBenutzer.getText().equals("") && txtPasswort.getPassword().length == 0){
+            showMessageDialog("Bitte gebe Benutzername und Passwort ein!");
+            return false;
+        }
+        else if(txtBenutzer.getText().equals("")){
+            showMessageDialog("Bitte gebe deinen Benutzernamen ein!");
+            return false;
+        }else if(txtPasswort.getPassword().length == 0){
+            showMessageDialog("Bitte gebe dein Passwort ein!");
+            return false;
+        }else return true;
     }
 
 

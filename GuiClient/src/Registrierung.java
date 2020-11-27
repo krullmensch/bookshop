@@ -25,9 +25,8 @@ public class Registrierung extends JFrame {
     private JComboBox cBoxGeschlecht;
     private JTextField txtGeburtstag;
 
-    public Registrierung(ShopGUI gui, Shopclient shopclient, StateGUI state){
+    public Registrierung(ShopGUI gui, Shopclient shopclient){
         this.gui = gui;
-        this.state = state;
         this.client = shopclient;
 
         initialise();

@@ -10,8 +10,8 @@ public class Shopclient extends Client {
     }
 
     @Override
-    public void processMessage(String message) {
-        String[] protokoll = message.split(":");
+    public void processMessage(String msg) {
+        String[] protokoll = msg.split(":");
         switch (protokoll[0]){
             case "VERBUNDEN":
                 gui.changeState(StateGUI.ANMELDUNG);

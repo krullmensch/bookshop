@@ -40,4 +40,9 @@ public class Shopserver extends Server {
 
 1. Muss die IP und der Port notiert werden damit keine Mehrfachverbindungen über den selben Port funktionieren?
 
+//Fragen an Hannah und Linus
+
+1. Warum wird als Suchergebnis nur die Artikelnummer zurückgegeben?
+2. Wird der Einkaufswagen in der Datenbank gespeichert?
+
 */

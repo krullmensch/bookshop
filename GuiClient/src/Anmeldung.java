@@ -43,7 +43,7 @@ public class Anmeldung extends JFrame {
                     for(int i = 0; i < txtPasswort.getPassword().length; i++){
                         passwort = passwort + txtPasswort.getPassword()[i];
                     }
-                    String msg = "ANMELDUNG:" + txtBenutzer.getText() + ":" + passwort;
+                    String msg = "ANM:" +  txtBenutzer.getText() + ":" + passwort;
                     client.send(msg);
                 }
             }
@@ -66,14 +66,14 @@ public class Anmeldung extends JFrame {
 
     private Boolean checkFields(){
         if(txtBenutzer.getText().equals("") && txtPasswort.getPassword().length == 0){
-            showMessageDialog("Bitte gebe Benutzername und Passwort ein!");
+            showMessageDialog("Bitte gib Benutzername und Passwort ein!");
             return false;
         }
         else if(txtBenutzer.getText().equals("")){
-            showMessageDialog("Bitte gebe deinen Benutzernamen ein!");
+            showMessageDialog("Bitte gib deinen Benutzernamen ein!");
             return false;
         }else if(txtPasswort.getPassword().length == 0){
-            showMessageDialog("Bitte gebe dein Passwort ein!");
+            showMessageDialog("Bitte gib dein Passwort ein!");
             return false;
         }else return true;
     }
@@ -91,6 +91,7 @@ public class Anmeldung extends JFrame {
     public void enableAnmeldung() {
         btnAnmelden.setEnabled(true);
         btnRegistrieren.setEnabled(true);
+        btnVerbinden.setEnabled(false);
     }
 
 

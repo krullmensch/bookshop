@@ -1,9 +1,6 @@
 import netzklassen.Server;
-import java.util.HashMap;
 
 public class Shopserver extends Server {
-
-    HashMap<String, Integer> aktVerbindungen = new HashMap<String,Integer>();
 
     public Shopserver(int serverPort) {
         super(serverPort);
@@ -13,15 +10,13 @@ public class Shopserver extends Server {
     public void processNewConnection(String clientIP, int clientPort) {
         System.out.println("Verbindung mit IP " + clientIP + " über Port " + clientPort + " aufgebaut!");
 
-        //aktVerbindungen.put(clientIP, clientPort);
         send(clientIP, clientPort, "VERBUNDEN");
-        //System.out.println(aktVerbindungen);
     }
 
     @Override
     public void processMessage(String clientIP, int clientPort, String msg) {
         String[] protokoll = msg.split(":");
-        switch (protokoll[0]){
+        switch (protokoll[0]) {
             case "ANM":
                 break;
             case "REG":
@@ -29,6 +24,21 @@ public class Shopserver extends Server {
             case "ABM":
                 break;
             case "SUCHE":
+                if (protokoll[1] == "Autor") {
+                    Anfragen.sucheAutor(protokoll[2]);
+                }
+
+                if (protokoll[1] == "Titel") {
+                    Anfragen.sucheTitel(protokoll[2]);
+                }
+
+                if (protokoll[1] == "isbn") {
+                    Anfragen.sucheISBN(protokoll[2]);
+                }
+
+                if (protokoll[1] == "genre") {
+                    Anfragen.sucheGenre(protokoll[2]);
+                }
                 break;
         }
     }
@@ -45,12 +55,12 @@ public class Shopserver extends Server {
     }
 }
 
-//FRAGEN AN CHRISTIAN
 /*
+FRAGEN AN CHRISTIAN
 
-1. Muss die IP und der Port notiert werden damit keine Mehrfachverbindungen über den selben Port funktionieren?
+1. Databaseconnector Importieren
 
-//Fragen an Hannah und Linus
+Fragen an Hannah und Linus
 
 1. Warum wird als Suchergebnis nur die Artikelnummer zurückgegeben?
 2. Wird der Einkaufswagen in der Datenbank gespeichert?

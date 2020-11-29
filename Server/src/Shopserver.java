@@ -13,14 +13,24 @@ public class Shopserver extends Server {
     public void processNewConnection(String clientIP, int clientPort) {
         System.out.println("Verbindung mit IP " + clientIP + " über Port " + clientPort + " aufgebaut!");
 
-        aktVerbindungen.put(clientIP, clientPort);
+        //aktVerbindungen.put(clientIP, clientPort);
         send(clientIP, clientPort, "VERBUNDEN");
-        System.out.println(aktVerbindungen);
+        //System.out.println(aktVerbindungen);
     }
 
     @Override
     public void processMessage(String clientIP, int clientPort, String msg) {
-        
+        String[] protokoll = msg.split(":");
+        switch (protokoll[0]){
+            case "ANM":
+                break;
+            case "REG":
+                break;
+            case "ABM":
+                break;
+            case "SUCHE":
+                break;
+        }
     }
 
     @Override

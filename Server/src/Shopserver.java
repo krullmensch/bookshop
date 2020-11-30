@@ -18,6 +18,7 @@ public class Shopserver extends Server {
         String[] protokoll = msg.split(":");
         switch (protokoll[0]) {
             case "ANM":
+                Anfragen.einloggen(protokoll[1]);
                 break;
             case "REG":
                 break;
@@ -39,6 +40,12 @@ public class Shopserver extends Server {
                 if (protokoll[1] == "genre") {
                     Anfragen.sucheGenre(protokoll[2]);
                 }
+                break;
+            case "KAUFEN":
+                break;
+            case "BEW":
+                break;
+            case "PROFEDIT":
                 break;
         }
     }

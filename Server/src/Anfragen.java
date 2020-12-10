@@ -6,7 +6,7 @@ public class Anfragen {
 
     public static String userRegistrieren(String username, int plz, String straße, String hausnummer, String password, String vorname, String name, String eMail, int telefonnummer, Date geburtsdatum, String geschlecht){
         String userRegistrieren = "INSERT INTO User (Username, PLZ, Straße, Hausnummer, Password, Vorname, Name, E-Mail, Telefonnummer, Geburtstag, Geschlecht)"+
-                "VALUES ("+username+", "+plz+", "+straße+", "+hausnummer+", "+password+", "+vorname+", "+name+", "+eMail+", "+telefonnummer+", "+geburtsdatum+", "+geschlecht+")";
+                "VALUES (" + username + ", " + plz + ", " + straße + ", " + hausnummer + ", " + password + ", " + vorname + ", " + name + ", " + eMail + ", " + telefonnummer + ", " + geburtsdatum + ", " + geschlecht + ")";
         return userRegistrieren;
     }
 
@@ -16,7 +16,7 @@ public class Anfragen {
     }
 
     public static String userBearbeiten(String username, String kategorie, String inhalt){
-        String userBearbeiten = "UPDATE User SET"+kategorie+"="+inhalt+" WHERE Username="+username;
+        String userBearbeiten = "UPDATE User SET" + kategorie + "=" + inhalt + " WHERE Username=" + username;
         return userBearbeiten;
     }
 

@@ -65,8 +65,6 @@ public class Shopserver extends Server {
 /*
 FRAGEN AN CHRISTIAN
 
-1. Databaseconnector Importieren
-
 Fragen an Hannah und Linus
 
 1. Warum wird als Suchergebnis nur die Artikelnummer zurückgegeben?

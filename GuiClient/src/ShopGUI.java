@@ -67,6 +67,7 @@ public class ShopGUI {
 
     public static void main(String[] args) {
         ShopGUI s = new ShopGUI();
+        //Suche suche = new Suche();
 
 
     }

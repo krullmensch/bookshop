@@ -24,8 +24,7 @@ public class Shopclient extends Client {
                 //gui.displaySuchen
                 break;
             case "REGOK":
-                gui.changeState(StateGUI.ANMELDUNG);
-                gui.displayRegistrierung();
+                gui.displayAnmeldung();
                 break;
             case "ERGEBNIS":
 

@@ -1,6 +1,9 @@
 import javax.swing.*;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.NumberFormatter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 
 public class Registrierung extends JFrame {
 
@@ -14,7 +17,7 @@ public class Registrierung extends JFrame {
     private JTextField txtEmail;
     private JTextField txtTel;
     private JButton btnSendReg;
-    private JTextField txtStraße;
+    private JTextField txtStrasse;
     private JTextField txtHsnr;
     private JTextField txtOrt;
     private JTextField txtPlz;
@@ -34,7 +37,13 @@ public class Registrierung extends JFrame {
         btnSendReg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gui.displayAnmeldung();
+                if(checkFields()){
+                    String msg = txtRegBenutzer.getText() + ";" + parsePasswort() + txtVorname.getText() + ";" + txtNachname.getText() + ";" +
+                            txtGeburtstag.getText() + ";" + cBoxGeschlecht.getActionCommand() + ";" + txtStrasse.getText() + ";" +
+                            txtHsnr.getText() + ";" + txtOrt.getText() + ";" + txtPlz.getText() + ";" + txtEmail.getText() + txtTel.getText();
+                    client.send(msg);
+                    gui.displayAnmeldung(); //Fällt später weg
+                }
             }
         });
     }
@@ -47,12 +56,40 @@ public class Registrierung extends JFrame {
         setVisible(true);
     }
 
+    private Boolean checkFields(){
+        if(checkField(txtRegBenutzer) && !parsePasswort().equals("") && checkField(txtVorname) && checkField(txtNachname) &&
+                checkField(txtGeburtstag) && checkField(txtStrasse) && Pruefer.isInteger(txtHsnr.getText()) && checkField(txtOrt) &&
+                Pruefer.isInteger(txtPlz.getText()) && Pruefer.emailCheck(txtEmail.getText()) && Pruefer.isInteger(txtTel.getText())){
+            return true;
+        }
+        else{
+            showMessageDialog("Eingabe nicht korrekt!");
+            return false;
+        }
+    }
+
+    private boolean checkField(JTextField t) {
+        if(t.getText().equals("")) return false;
+        else return true;
+    }
+
+
+    private String parsePasswort(){
+        String passwort = "";
+        for(int i = 0; i < txtRegPasswort.getPassword().length; i++){
+            passwort = passwort + txtRegPasswort.getPassword()[i];
+        }
+        return passwort;
+    }
+
+
     public void showMessageDialog(String msg){
-        JOptionPane.showMessageDialog(null, "msg");
+        JOptionPane.showMessageDialog(null, msg);
     }
 
 
     public void printOut(String out){
 
     }
+
 }

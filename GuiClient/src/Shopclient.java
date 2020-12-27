@@ -1,3 +1,4 @@
+import datenstrukturklassen.linear.List;
 import netzklassen.Client;
 
 public class Shopclient extends Client {
@@ -21,12 +22,23 @@ public class Shopclient extends Client {
             case "ANMOK":
                 gui.changeState(StateGUI.SUCHE);
                 gui.showMessageDialog("Anmeldung erfolgreich!");
-                //gui.displaySuchen
+                gui.displaySuche();
                 break;
             case "REGOK":
                 gui.displayAnmeldung();
                 break;
             case "ERGEBNIS":
+                if(protokoll[1].equals("")){
+                    gui.showMessageDialog("Keine Bücher mit dieser Suche gefunden!");
+                }else {
+                    List<Produkt> ergebnis = new List<>();
+                    for (int i = 1; i < protokoll.length; i++) {
+                        String[] p = protokoll[i].split(",");
+                        ergebnis.append(new Produkt(p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10], p[11], p[12]));
+                    }
+                    gui.displayErgebnis(ergebnis);
+                }
+
 
 
 

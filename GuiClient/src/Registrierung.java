@@ -1,9 +1,15 @@
 import javax.swing.*;
+import javax.swing.text.DateFormatter;
+import javax.swing.text.DefaultFormatter;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.FieldPosition;
 import java.text.NumberFormat;
+import java.text.ParsePosition;
+import java.util.Date;
 
 public class Registrierung extends JFrame {
 
@@ -27,20 +33,21 @@ public class Registrierung extends JFrame {
     private JTextField txtNachname;
     private JComboBox cBoxGeschlecht;
     private JTextField txtGeburtstag;
+    private JFormattedTextField formattedTextField1;
 
     public Registrierung(ShopGUI gui, Shopclient shopclient){
         this.gui = gui;
         this.client = shopclient;
-
         initialise();
+
 
         btnSendReg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(checkFields()){
-                    String msg = txtRegBenutzer.getText() + ";" + parsePasswort() + txtVorname.getText() + ";" + txtNachname.getText() + ";" +
-                            txtGeburtstag.getText() + ";" + cBoxGeschlecht.getActionCommand() + ";" + txtStrasse.getText() + ";" +
-                            txtHsnr.getText() + ";" + txtOrt.getText() + ";" + txtPlz.getText() + ";" + txtEmail.getText() + txtTel.getText();
+                    String msg = "REG:" + txtRegBenutzer.getText() + ":" + parsePasswort() + txtVorname.getText() + ":" + txtNachname.getText() + ":" +
+                            txtGeburtstag.getText() + ":" + cBoxGeschlecht.getActionCommand() + ":" + txtStrasse.getText() + ":" +
+                            txtHsnr.getText() + ":" + txtOrt.getText() + ":" + txtPlz.getText() + ":" + txtEmail.getText() + txtTel.getText();
                     client.send(msg);
                     gui.displayAnmeldung(); //Fällt später weg
                 }

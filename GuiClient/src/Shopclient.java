@@ -34,7 +34,7 @@ public class Shopclient extends Client {
                     List<Produkt> ergebnis = new List<>();
                     for (int i = 1; i < protokoll.length; i++) {
                         String[] p = protokoll[i].split(",");
-                        ergebnis.append(new Produkt(p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10], p[11], p[12]));
+                        ergebnis.append(new Produkt(p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10], p[11], p[12], p[13]));
                     }
                     gui.displayErgebnis(ergebnis);
                 }

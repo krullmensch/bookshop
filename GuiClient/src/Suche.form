@@ -18,58 +18,6 @@
         <properties/>
         <border type="none"/>
         <children>
-          <grid id="ad075" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="0" left="0" bottom="0" right="0"/>
-            <constraints border-constraint="North"/>
-            <properties/>
-            <border type="none"/>
-            <children>
-              <grid id="411e7" class="javax.swing.JMenuBar" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="0" left="0" bottom="0" right="0"/>
-                <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties/>
-                <border type="none"/>
-                <children>
-                  <grid id="d5dcf" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                    <margin top="0" left="0" bottom="0" right="0"/>
-                    <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties/>
-                    <border type="none"/>
-                    <children>
-                      <component id="26579" class="javax.swing.JMenuItem">
-                        <constraints>
-                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <text value="Profil"/>
-                        </properties>
-                      </component>
-                      <component id="def70" class="javax.swing.JMenuItem">
-                        <constraints>
-                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                        </constraints>
-                        <properties>
-                          <text value="Bestellung"/>
-                        </properties>
-                      </component>
-                    </children>
-                  </grid>
-                  <component id="a47b7" class="javax.swing.JMenuItem">
-                    <constraints>
-                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="Abmelden"/>
-                    </properties>
-                  </component>
-                </children>
-              </grid>
-            </children>
-          </grid>
           <grid id="608ef" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints border-constraint="Center"/>
@@ -223,19 +171,22 @@
                                           <text value="Beschreibung"/>
                                         </properties>
                                       </component>
-                                      <component id="ac66d" class="javax.swing.JLabel" binding="lbAuthor">
+                                      <component id="c2ca9" class="javax.swing.JTextField" binding="txtAuthor">
                                         <constraints>
-                                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                                         </constraints>
                                         <properties>
+                                          <editable value="false"/>
                                           <text value=""/>
                                         </properties>
                                       </component>
-                                      <component id="c788" class="javax.swing.JLabel" binding="lbErschienen">
+                                      <component id="a1942" class="javax.swing.JTextField" binding="txtErschienen">
                                         <constraints>
-                                          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                                          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                                         </constraints>
                                         <properties>
+                                          <editable value="false"/>
+                                          <enabled value="true"/>
                                           <text value=""/>
                                         </properties>
                                       </component>
@@ -247,11 +198,13 @@
                                           <text value="Erscheinungsdatum"/>
                                         </properties>
                                       </component>
-                                      <component id="d255a" class="javax.swing.JLabel" binding="lbVerlag">
+                                      <component id="92fec" class="javax.swing.JTextField" binding="txtVerlag">
                                         <constraints>
-                                          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                                          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                                         </constraints>
                                         <properties>
+                                          <editable value="false"/>
+                                          <enabled value="true"/>
                                           <text value=""/>
                                         </properties>
                                       </component>
@@ -263,27 +216,31 @@
                                           <text value="Verlag"/>
                                         </properties>
                                       </component>
-                                      <component id="c373d" class="javax.swing.JLabel" binding="lbISBN">
+                                      <component id="f3ef1" class="javax.swing.JTextField" binding="txtISBN">
                                         <constraints>
-                                          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                                          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                                         </constraints>
                                         <properties>
+                                          <editable value="false"/>
+                                          <enabled value="true"/>
                                           <text value=""/>
                                         </properties>
                                       </component>
-                                      <component id="570e0" class="javax.swing.JLabel" binding="lbGenre">
+                                      <component id="44910" class="javax.swing.JTextField" binding="txtGenre">
                                         <constraints>
-                                          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                                          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                                         </constraints>
                                         <properties>
+                                          <editable value="false"/>
                                           <text value=""/>
                                         </properties>
                                       </component>
-                                      <component id="87341" class="javax.swing.JLabel" binding="lbSprache">
+                                      <component id="1c1f9" class="javax.swing.JTextField" binding="txtSprache">
                                         <constraints>
-                                          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                                          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                                         </constraints>
                                         <properties>
+                                          <editable value="false"/>
                                           <text value=""/>
                                         </properties>
                                       </component>
@@ -311,11 +268,12 @@
                                           <text value="Sprache"/>
                                         </properties>
                                       </component>
-                                      <component id="4883e" class="javax.swing.JLabel" binding="lbAlter">
+                                      <component id="46657" class="javax.swing.JTextField" binding="txtAlter">
                                         <constraints>
-                                          <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                                          <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                                         </constraints>
                                         <properties>
+                                          <editable value="false"/>
                                           <text value=""/>
                                         </properties>
                                       </component>
@@ -403,33 +361,38 @@
                                           <text value="Durchschnitsbewertung"/>
                                         </properties>
                                       </component>
-                                      <component id="140ca" class="javax.swing.JSpinner" binding="spinner1" default-binding="true">
+                                      <component id="40420" class="javax.swing.JTextField" binding="txtMenge">
                                         <constraints>
-                                          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                                          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                                         </constraints>
-                                        <properties/>
+                                        <properties>
+                                          <text value="1"/>
+                                        </properties>
                                       </component>
-                                      <component id="bf066" class="javax.swing.JLabel" binding="lbPreis">
+                                      <component id="e859" class="javax.swing.JTextField" binding="txtPreis">
                                         <constraints>
                                           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                                         </constraints>
                                         <properties>
+                                          <editable value="false"/>
                                           <text value=""/>
                                         </properties>
                                       </component>
-                                      <component id="44c02" class="javax.swing.JLabel" binding="lbBestand">
+                                      <component id="a725f" class="javax.swing.JTextField" binding="txtBestand">
                                         <constraints>
                                           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                                         </constraints>
                                         <properties>
+                                          <editable value="false"/>
                                           <text value=""/>
                                         </properties>
                                       </component>
-                                      <component id="82ff2" class="javax.swing.JLabel" binding="lbAvgBewertung">
+                                      <component id="1deed" class="javax.swing.JTextField" binding="txtAvgBewertung">
                                         <constraints>
                                           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                                         </constraints>
                                         <properties>
+                                          <editable value="false"/>
                                           <text value=""/>
                                         </properties>
                                       </component>
@@ -445,6 +408,48 @@
                   </grid>
                 </children>
               </grid>
+            </children>
+          </grid>
+          <grid id="411e7" class="javax.swing.JMenuBar" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints border-constraint="North"/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <grid id="d5dcf" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="26579" class="javax.swing.JMenuItem">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Profil"/>
+                    </properties>
+                  </component>
+                  <component id="def70" class="javax.swing.JMenuItem" binding="btnBestellung">
+                    <constraints>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Bestellung"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <component id="a47b7" class="javax.swing.JMenuItem" binding="btnAbmelden">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Abmelden"/>
+                </properties>
+              </component>
             </children>
           </grid>
         </children>

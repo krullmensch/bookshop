@@ -5,7 +5,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Formatter;
 
 public class Suche extends JFrame {
     private ShopGUI gui;
@@ -23,18 +22,20 @@ public class Suche extends JFrame {
     private JTextArea beschreibungTextArea;
     private JButton inDenEinkaufswagenButton;
     private JTextArea bewertungenTextArea;
-    private JSpinner spinner1;
+    private JTextField txtMenge;
     private JLabel lbTitel;
-    private JLabel lbAlter;
-    private JLabel lbSprache;
-    private JLabel lbGenre;
-    private JLabel lbISBN;
-    private JLabel lbVerlag;
-    private JLabel lbErschienen;
-    private JLabel lbAuthor;
-    private JLabel lbPreis;
-    private JLabel lbBestand;
-    private JLabel lbAvgBewertung;
+    private JTextField txtAlter;
+    private JTextField txtSprache;
+    private JTextField txtGenre;
+    private JTextField txtISBN;
+    private JTextField txtVerlag;
+    private JTextField txtErschienen;
+    private JTextField txtAuthor;
+    private JTextField txtPreis;
+    private JTextField txtBestand;
+    private JTextField txtAvgBewertung;
+    private JMenuItem btnBestellung;
+    private JMenuItem btnAbmelden;
 
 
     public Suche() { //ShopGUI gui, Shopclient shopclient
@@ -44,9 +45,9 @@ public class Suche extends JFrame {
         listProduktModel = new DefaultListModel<>();
         list1.setModel(listProduktModel);
         einkaufswagen = new Einkaufswagen();
-        gui.referenceEinkaufswagen(einkaufswagen);
+        //gui.referenceEinkaufswagen(einkaufswagen);
 
-        spinner1.setValue(1);
+
         sucheButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -65,16 +66,16 @@ public class Suche extends JFrame {
                 if(produktNummer >= 0){
                     Produkt p = get(listErgebnis, produktNummer);
                     lbTitel.setText(p.getTitel());
-                    lbAuthor.setText(p.getAutor());
-                    lbErschienen.setText(p.getErscheinungsdatum());
-                    lbISBN.setText(p.getIsbn());
-                    lbAlter.setText(p.getAltersfreigabe());
-                    lbGenre.setText(p.getGenre());
-                    lbSprache.setText(p.getSprache());
-                    lbVerlag.setText(p.getVerlag());
-                    lbPreis.setText(p.getPreis());
-                    lbBestand.setText(p.getLagerbestand());
-                    lbAvgBewertung.setText(p.getDurschnitssbewertung());
+                    txtAuthor.setText(p.getAutor());
+                    txtErschienen.setText(p.getErscheinungsdatum());
+                    txtISBN.setText(p.getIsbn());
+                    txtAlter.setText(p.getAltersfreigabe());
+                    txtGenre.setText(p.getGenre());
+                    txtSprache.setText(p.getSprache());
+                    txtVerlag.setText(p.getVerlag());
+                    txtPreis.setText(p.getPreis());
+                    txtBestand.setText(p.getLagerbestand());
+                    txtAvgBewertung.setText(p.getDurschnitssbewertung());
                     inDenEinkaufswagenButton.setEnabled(true);
                 }
 
@@ -84,9 +85,24 @@ public class Suche extends JFrame {
         inDenEinkaufswagenButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if((Integer) spinner1.getValue() >= 1){
-                    einkaufswagen.addItem(get(listErgebnis, list1.getSelectedIndex()), (Integer) spinner1.getValue());
-                }
+                if(Pruefer.isInteger(txtMenge.getText())){
+                    if(Integer.parseInt(txtMenge.getText()) >= 0 && Integer.parseInt(txtMenge.getText()) <= Integer.parseInt(txtBestand.getText())){
+                    einkaufswagen.addItem(get(listErgebnis, list1.getSelectedIndex()), Integer.parseInt(txtMenge.getText()));
+                    } else showMessageDialog("Die Menge muss größer als 0 sein und zu unserem Lagerbestand passen!");
+                }else showMessageDialog("Die Menge muss eine Zahl sein!");
+            }
+        });
+        btnBestellung.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //client connection.close
+                gui.displayAnmeldung();
+            }
+        });
+        btnAbmelden.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gui.displayBestellung();
             }
         });
     }

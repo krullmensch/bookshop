@@ -1,8 +1,6 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 public class Produkt {
 
+    private String artikelid;
     private String titel;
     private String autor;
     private String erscheinungsdatum;
@@ -18,8 +16,9 @@ public class Produkt {
     private String durschnitssbewertung;
 
 
-    public Produkt(String titel, String autor, String erscheinungsdatum, String verlag, String isbn, String preis, String genre,
+    public Produkt(String artikelid, String titel, String autor, String erscheinungsdatum, String verlag, String isbn, String preis, String genre,
                    String sprache, String beschreibung, String bewertung, String altersfreigabe, String lagerbestand, String durschnitssbewertung) {
+        this.artikelid = artikelid;
         this.titel = titel;
         this.autor = autor;
         this.erscheinungsdatum = erscheinungsdatum; //Zum Erstellen von Produkt mit Erscheinungsjahr als String
@@ -29,10 +28,11 @@ public class Produkt {
         this.genre = genre;
         this.sprache = sprache;
         this.beschreibung = beschreibung;
-        this.bewertung = bewertung;
+        this.bewertung = bewertung; //Sterne und Schriftlich
         this.altersfreigabe = altersfreigabe;
         this.lagerbestand = lagerbestand;
         this.durschnitssbewertung = durschnitssbewertung;
+
     }
 
     public String getTitel() {
@@ -137,5 +137,13 @@ public class Produkt {
 
     public void setErscheinungsdatum(String erscheinungsdatum) {
         this.erscheinungsdatum = erscheinungsdatum;
+    }
+
+    public String getArtikelid() {
+        return artikelid;
+    }
+
+    public void setArtikelid(String artikelid) {
+        this.artikelid = artikelid;
     }
 }

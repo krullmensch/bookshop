@@ -3,7 +3,6 @@ import datenstrukturklassen.linear.List;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -29,8 +28,6 @@ public class Bestellung extends JFrame {
     private JButton btnBearbeiten;
     private JButton btnEntfernen;
 
-    DefaultTableModel model;
-
     public Bestellung(Einkaufswagen e) {
         this.einkaufswagen = e;
 
@@ -38,9 +35,7 @@ public class Bestellung extends JFrame {
         listEinkaufswagenModel = new DefaultListModel<>();
         list1.setModel(listEinkaufswagenModel);
 
-        if (!einkaufswagen.isEmpty()) displayEinkaufswagen();
-        else showMessageDialog("Dein Einkaufswagen ist leer!");
-
+        displayEinkaufswagen();
 
         list1.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -48,16 +43,19 @@ public class Bestellung extends JFrame {
                 int produktNummer = list1.getSelectedIndex();
                 if (produktNummer >= 0) {
                     Produkt p = get(einkaufswagen.getL(), produktNummer).getKey();
-                    txtPreis.setText(p.getPreis());
+                    txtPreis.setText(p.getPreis() + "€");
+                    txtMenge.setText(String.valueOf(get(einkaufswagen.getL(), produktNummer).getValue()));
                     txtBestand.setText(p.getLagerbestand());
                     int zsumme = Integer.parseInt(get(einkaufswagen.getL(), produktNummer).getKey().getPreis()) *
                     get(einkaufswagen.getL(), produktNummer).getValue();
-                    txtZsumme.setText(String.valueOf(zsumme));
-                    txtaInfo.setText(p.getTitel() + "/n" + p.getAutor() + p.getErscheinungsdatum() + p.getVerlag() + p.getIsbn() + p.getGenre() + p.getSprache() +
-                            p.getAltersfreigabe() + p.getBeschreibung());
+                    txtZsumme.setText(String.valueOf(zsumme) + "€");
+                    txtaInfo.setText(p.getTitel() + "\n" + p.getAutor() + "\n" + p.getErscheinungsdatum() + "\n" + p.getVerlag() + "\n" + p.getIsbn()
+                            + "\n" + p.getGenre()+ "\n"  + p.getSprache() + "\n" +
+                            p.getAltersfreigabe() + "\n" + p.getBeschreibung());
 
                     btnBearbeiten.setEnabled(true);
                     btnEntfernen.setEnabled(true);
+                    txtMenge.requestFocusInWindow();
 
                 }
             }
@@ -73,6 +71,7 @@ public class Bestellung extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int produktnummer = list1.getSelectedIndex();
                 einkaufswagen.removeItem(get(einkaufswagen.getL(), produktnummer));
+                resetInterface();
                 displayEinkaufswagen();
 
             }
@@ -81,22 +80,28 @@ public class Bestellung extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int produktnummer = list1.getSelectedIndex();
-                if(Pruefer.isInteger(txtMenge.getText())){
-                    if(Integer.parseInt(txtMenge.getText()) >= 0 && Integer.parseInt(txtMenge.getText()) <= Integer.parseInt(txtBestand.getText())){
+                if(Pruefer.isInteger(txtMenge.getText()) && Integer.parseInt(txtBestand.getText()) > -1){
+                    if(Integer.parseInt(txtMenge.getText()) == 0 ) {
+                        einkaufswagen.removeItem(get(einkaufswagen.getL(), produktnummer));
+                        resetInterface();
+                        displayEinkaufswagen();
+                    }else if(Integer.parseInt(txtMenge.getText()) < Integer.parseInt(txtBestand.getText())){
                         einkaufswagen.editItem(get(einkaufswagen.getL(), list1.getSelectedIndex()).getKey(), Integer.parseInt(txtMenge.getText()));
                         displayEinkaufswagen();
-                    } else showMessageDialog("Die Menge muss größer als 0 sein und zu unserem Lagerbestand passen!");
-                }else showMessageDialog("Die Menge muss eine Zahl sein!");
+                        list1.setSelectedIndex(produktnummer);
+                    }else showMessageDialog("So viele Exemplare von diesem Buch haben wir leider nicht!");
+                }else showMessageDialog("Die Menge muss eine natürliche Zahl sein!");
             }
         });
         btnLeeren.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 einkaufswagen.clearList();
+                listEinkaufswagenModel.removeAllElements();
                 btnLeeren.setEnabled(false);
                 btnBestellen.setEnabled(false);
-                btnBearbeiten.setEnabled(false);
-                btnEntfernen.setEnabled(false);
+                resetInterface();
+                displayEinkaufswagen();
             }
         });
         btnBestellen.addActionListener(new ActionListener() {
@@ -117,11 +122,23 @@ public class Bestellung extends JFrame {
     }
 
     private void initialise() {
-        setTitle("Suche");
+        setTitle("Bestellung");
         setContentPane(panel1);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
+    }
+
+    private void resetInterface(){
+        list1.setSelectedIndex(-1);
+        txtPreis.setText("");
+        txtMenge.setText("");
+        txtZsumme.setText("");
+        txtBestand.setText("");
+        txtaInfo.setText("");
+        txtSumme.setText("");
+        btnBearbeiten.setEnabled(false);
+        btnEntfernen.setEnabled(false);
     }
 
     public Paar<Produkt, Integer> get(List<Paar<Produkt, Integer>> l, int index) {
@@ -136,19 +153,25 @@ public class Bestellung extends JFrame {
     }
 
     public void displayEinkaufswagen() {
-        List<Paar<Produkt, Integer>> en = einkaufswagen.getL();
-
-        listEinkaufswagenModel.removeAllElements();
-        for (en.toFirst(); en.hasAccess(); en.next()) {
-
-            listEinkaufswagenModel.addElement(en.getContent().getKey().getTitel() + " - " +
-                    en.getContent().getKey().getAutor());
+        if (einkaufswagen.isEmpty()){
+            showMessageDialog("Dein Einkaufswagen ist leer!");
+            resetInterface();
+            btnLeeren.setEnabled(false);
+            btnBestellen.setEnabled(false);
         }
-        txtMenge.setText(String.valueOf(en.getContent().getValue()));
-        txtSumme.setText(String.valueOf(einkaufswagen.getSumme()));
+        else {
+            List<Paar<Produkt, Integer>> en = einkaufswagen.getL();
 
-        btnLeeren.setEnabled(true);
-        btnBestellen.setEnabled(true);
+            listEinkaufswagenModel.removeAllElements();
+            for (en.toFirst(); en.hasAccess(); en.next()) {
+
+                listEinkaufswagenModel.addElement(en.getContent().getKey().getTitel());
+            }
+            txtSumme.setText(String.valueOf(einkaufswagen.getSumme())+ "€");
+
+            btnLeeren.setEnabled(true);
+            btnBestellen.setEnabled(true);
+        }
 
     }
 

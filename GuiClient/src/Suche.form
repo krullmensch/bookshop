@@ -160,7 +160,7 @@
                                           <text value="Author"/>
                                         </properties>
                                       </component>
-                                      <component id="31b2d" class="javax.swing.JTextArea" binding="beschreibungTextArea" default-binding="true">
+                                      <component id="31b2d" class="javax.swing.JTextArea" binding="txtaBeschreibung">
                                         <constraints>
                                           <grid row="7" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                                             <preferred-size width="150" height="50"/>
@@ -327,7 +327,7 @@
                                           <text value="Bestand"/>
                                         </properties>
                                       </component>
-                                      <component id="3fc9d" class="javax.swing.JButton" binding="inDenEinkaufswagenButton" default-binding="true">
+                                      <component id="3fc9d" class="javax.swing.JButton" binding="btnEinkaufswagen">
                                         <constraints>
                                           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                                         </constraints>
@@ -343,7 +343,7 @@
                                         <properties/>
                                         <border type="none"/>
                                         <children>
-                                          <component id="9ee8a" class="javax.swing.JTextArea" binding="bewertungenTextArea" default-binding="true">
+                                          <component id="9ee8a" class="javax.swing.JTextArea" binding="txtaBewertung">
                                             <constraints/>
                                             <properties>
                                               <editable value="false"/>

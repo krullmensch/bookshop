@@ -10,8 +10,8 @@ public class Einkaufswagen {
 
     public Boolean isEmpty(){
         l.toFirst();
-        if(l.hasAccess()) return true;
-        else return false;
+        if(l.hasAccess()) return false;
+        else return true;
     }
 
     private Boolean getItem(Produkt p){

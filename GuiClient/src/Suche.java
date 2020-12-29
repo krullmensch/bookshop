@@ -19,9 +19,9 @@ public class Suche extends JFrame {
     private JTextField txtSuche;
     private JComboBox cSuchtyp;
     private JButton sucheButton;
-    private JTextArea beschreibungTextArea;
-    private JButton inDenEinkaufswagenButton;
-    private JTextArea bewertungenTextArea;
+    private JTextArea txtaBeschreibung;
+    private JButton btnEinkaufswagen;
+    private JTextArea txtaBewertung;
     private JTextField txtMenge;
     private JLabel lbTitel;
     private JTextField txtAlter;
@@ -54,6 +54,7 @@ public class Suche extends JFrame {
                 if(txtSuche.getText().equals("")){
                     showMessageDialog("Keine Sucheingabe!");
                 }else{
+
                     client.send("SUCHE:" + cSuchtyp.getActionCommand() + ":" + txtSuche.getText());
                 }
 
@@ -73,16 +74,18 @@ public class Suche extends JFrame {
                     txtGenre.setText(p.getGenre());
                     txtSprache.setText(p.getSprache());
                     txtVerlag.setText(p.getVerlag());
-                    txtPreis.setText(p.getPreis());
+                    txtPreis.setText(p.getPreis() + "€");
                     txtBestand.setText(p.getLagerbestand());
                     txtAvgBewertung.setText(p.getDurschnitssbewertung());
-                    inDenEinkaufswagenButton.setEnabled(true);
+                    txtaBeschreibung.setText(p.getBeschreibung());
+                    txtaBewertung.setText(p.getBewertung());
+                    btnEinkaufswagen.setEnabled(true);
                 }
 
 
             }
         });
-        inDenEinkaufswagenButton.addActionListener(new ActionListener() {
+        btnEinkaufswagen.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(Pruefer.isInteger(txtMenge.getText())){
@@ -95,16 +98,34 @@ public class Suche extends JFrame {
         btnBestellung.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //client connection.close
-                gui.displayAnmeldung();
+                gui.displayBestellung();
             }
         });
         btnAbmelden.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gui.displayBestellung();
+                gui.displayAnmeldung(); //connection close
             }
         });
+    }
+
+    private void resetInterface(){
+        listProduktModel.removeAllElements();
+        lbTitel.setText("");
+        txtAuthor.setText("");
+        txtErschienen.setText("");
+        txtISBN.setText("");
+        txtAlter.setText("");
+        txtGenre.setText("");
+        txtSprache.setText("");
+        txtVerlag.setText("");
+        txtPreis.setText("");
+        txtBestand.setText("");
+        txtAvgBewertung.setText("");
+        txtaBeschreibung.setText("");
+        txtaBewertung.setText("");
+        btnEinkaufswagen.setEnabled(false);
+
     }
 
     public Produkt get(List<Produkt> l, int index) {

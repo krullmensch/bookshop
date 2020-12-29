@@ -102,21 +102,30 @@ public class ShopGUI {
 
     public static void main(String[] args) {
         //ShopGUI s = new ShopGUI();
-        //Suche suche = new Suche();
-
         Suche suche = new Suche();
+
+        //Suche suche = new Suche();
         String [] protokoll = new String[3];
         protokoll[0] = "ERGEBNIS";
-        protokoll[1] = "100"+ "," + "Harry Potter und der Stein der Weisen" + "," + "JK" +","+  "3"+"," +"4"+"," +"5"+","+ "6" +","+"7"+","+"8"+","+"9"+","+"10"+","+"11"+","
-                +"12" + ","+ "13";
-        protokoll[2] = "101" + "," + "Schnotter" + "," + "Leo" +","+  "a"+"," +"b"+"," +"c"+","+ "d" +","+"e"+","+"f"+","+"g"+","+"h"+","+"i"+","
-                +"j"+","+"k";
+        protokoll[1] = "100"+ "/" + "Harry Potter und der Stein der Weisen" + "/" + "J.K. Rowlins" +"/"+  "20.01.2002"+"/" +"Cornelson"+"/" +"978-5472947"+"/"+
+                "10" +"/"+"Fantasy"+"/"+"Deutsch"+"/"+"Erster Teil der Harry Potter Buchreihe"+"/"+"***** Klasse Buch!"+"/"+"12"+"/"
+                +"29" + "/"+ "4,5";
+        protokoll[2] = "101" + "/" + "Fantastische Tierwesen" + "/" + "J.K. Rowlins" +"/"+  "03.08.2014"+"/" +"Cornelson"+"/" +"978-8432059"+"/"+ "15" +"/"+"Fantasy"+"/"+"Deutsch"+
+                "/"+"Spin-off der Harry Potter Buchreihe"+"/"+"** Hat mir nicht gefallen"+"/"+"12"+"/"
+                +"55"+"/"+"3,2";
         List<Produkt> ergebnis = new List<>();
         for (int i = 1; i < protokoll.length; i++) {
-            String[] p = protokoll[i].split(",");
+            String[] p = protokoll[i].split("/");
             ergebnis.append(new Produkt(p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], p[10], p[11], p[12], p[13]));
         }
         suche.displayErgebnis(ergebnis);
+
+        Einkaufswagen en = new Einkaufswagen();
+        ergebnis.toFirst();
+        en.addItem(ergebnis.getContent(), 2);
+        ergebnis.next();
+        en.addItem(ergebnis.getContent(), 1);
+        Bestellung b= new Bestellung(en);
 
 
     }

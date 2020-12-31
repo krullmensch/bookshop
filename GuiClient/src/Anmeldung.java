@@ -39,11 +39,7 @@ public class Anmeldung extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(checkFields()) {
-                    String passwort = "";
-                    for(int i = 0; i < txtPasswort.getPassword().length; i++){
-                        passwort = passwort + txtPasswort.getPassword()[i];
-                    }
-                    String msg = "ANM:" +  txtBenutzer.getText() + ":" + passwort;
+                    String msg = "ANM:" +  txtBenutzer.getText() + ":" + parsePasswort();
                     client.send(msg);
                 }
             }
@@ -65,17 +61,28 @@ public class Anmeldung extends JFrame {
     }
 
     private Boolean checkFields(){
-        if(txtBenutzer.getText().equals("") && txtPasswort.getPassword().length == 0){
+        if(txtBenutzer.getText().indexOf(':') != -1 || parsePasswort().indexOf(':') != -1){
+            showMessageDialog("Das Zeichen ':' ist keine gültige Eingabe!" );
+            return false;
+        }
+        else if(txtBenutzer.getText().equals("") && txtPasswort.getPassword().length == 0){
             showMessageDialog("Bitte gib Benutzername und Passwort ein!");
             return false;
         }
-        else if(txtBenutzer.getText().equals("")){
+        else if(txtBenutzer.getText().equals("") ){
             showMessageDialog("Bitte gib deinen Benutzernamen ein!");
             return false;
         }else if(txtPasswort.getPassword().length == 0){
             showMessageDialog("Bitte gib dein Passwort ein!");
             return false;
         }else return true;
+    }
+    private String parsePasswort(){
+        String passwort = "";
+        for(int i = 0; i < txtPasswort.getPassword().length; i++){
+            passwort = passwort + txtPasswort.getPassword()[i];
+        }
+        return passwort;
     }
 
 

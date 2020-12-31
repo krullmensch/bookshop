@@ -51,7 +51,7 @@ public class Bestellung extends JFrame {
                     txtZsumme.setText(String.valueOf(zsumme) + "€");
                     txtaInfo.setText(p.getTitel() + "\n" + p.getAutor() + "\n" + p.getErscheinungsdatum() + "\n" + p.getVerlag() + "\n" + p.getIsbn()
                             + "\n" + p.getGenre()+ "\n"  + p.getSprache() + "\n" +
-                            p.getAltersfreigabe() + "\n" + p.getBeschreibung());
+                            p.getAltersfreigabe());
 
                     btnBearbeiten.setEnabled(true);
                     btnEntfernen.setEnabled(true);
@@ -98,8 +98,6 @@ public class Bestellung extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 einkaufswagen.clearList();
                 listEinkaufswagenModel.removeAllElements();
-                btnLeeren.setEnabled(false);
-                btnBestellen.setEnabled(false);
                 resetInterface();
                 displayEinkaufswagen();
             }
@@ -111,11 +109,13 @@ public class Bestellung extends JFrame {
                 else{
                     List<Paar<Produkt, Integer>> en = einkaufswagen.getL();
                     String msg = "BESTELLUNG:" + einkaufswagen.getSumme() + ":";
-                    for(en.toFirst();en.hasAccess();en.next()){
-                        msg = msg + en.getContent().getKey().getArtikelid() + "/" + en.getContent().getValue() + ":";
+
+                    en.toFirst();
+                    while(en.hasAccess()){
+                        msg = msg + en.getContent().getKey().getArtikelid() + "/" + en.getContent().getValue();
+                        en.next();
+                        if(en.hasAccess()) msg = msg + ":";
                     }client.send(msg);
-                    showMessageDialog("Vielen Dank für deine Bestellung!");
-                    gui.displayAnmeldung();
                 }
             }
         });
@@ -139,6 +139,8 @@ public class Bestellung extends JFrame {
         txtSumme.setText("");
         btnBearbeiten.setEnabled(false);
         btnEntfernen.setEnabled(false);
+        btnLeeren.setEnabled(false);
+        btnBestellen.setEnabled(false);
     }
 
     public Paar<Produkt, Integer> get(List<Paar<Produkt, Integer>> l, int index) {
@@ -156,8 +158,6 @@ public class Bestellung extends JFrame {
         if (einkaufswagen.isEmpty()){
             showMessageDialog("Dein Einkaufswagen ist leer!");
             resetInterface();
-            btnLeeren.setEnabled(false);
-            btnBestellen.setEnabled(false);
         }
         else {
             List<Paar<Produkt, Integer>> en = einkaufswagen.getL();
@@ -167,7 +167,7 @@ public class Bestellung extends JFrame {
 
                 listEinkaufswagenModel.addElement(en.getContent().getKey().getTitel());
             }
-            txtSumme.setText(String.valueOf(einkaufswagen.getSumme())+ "€");
+            txtSumme.setText(einkaufswagen.getSumme()+ "€");
 
             btnLeeren.setEnabled(true);
             btnBestellen.setEnabled(true);

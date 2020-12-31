@@ -13,6 +13,7 @@ public class Suche extends JFrame {
     private List<Produkt> listErgebnis;
     private  DefaultListModel listProduktModel;
     private Einkaufswagen einkaufswagen;
+    private String letzeSuche;
 
     private JPanel panel1;
     private JList list1;
@@ -36,6 +37,9 @@ public class Suche extends JFrame {
     private JTextField txtAvgBewertung;
     private JMenuItem btnBestellung;
     private JMenuItem btnAbmelden;
+    private JTextArea txtaBewertungschreiben;
+    private JComboBox cbSterne;
+    private JButton btnBewertung;
 
 
     public Suche() { //ShopGUI gui, Shopclient shopclient
@@ -44,18 +48,20 @@ public class Suche extends JFrame {
         initialise();
         listProduktModel = new DefaultListModel<>();
         list1.setModel(listProduktModel);
-        einkaufswagen = new Einkaufswagen();
-        //gui.referenceEinkaufswagen(einkaufswagen);
+
+        if(einkaufswagen == null) {
+            einkaufswagen = new Einkaufswagen();
+            //gui.referenceEinkaufswagen(einkaufswagen);
+        }
 
 
         sucheButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(txtSuche.getText().equals("")){
-                    showMessageDialog("Keine Sucheingabe!");
+                if(!Pruefer.checkField(txtSuche.getText())){
+                    showMessageDialog("Unzulässige Sucheingabe!");
                 }else{
-
-                    client.send("SUCHE:" + cSuchtyp.getActionCommand() + ":" + txtSuche.getText());
+                    client.send("SUCHE:" + cSuchtyp.getSelectedItem().toString() + ":" + txtSuche.getText());
                 }
 
             }
@@ -78,8 +84,15 @@ public class Suche extends JFrame {
                     txtBestand.setText(p.getLagerbestand());
                     txtAvgBewertung.setText(p.getDurschnitssbewertung());
                     txtaBeschreibung.setText(p.getBeschreibung());
-                    txtaBewertung.setText(p.getBewertung());
+                    txtaBewertungschreiben.setText("");
+
+                    String b = "";
+                    for(int i = 0;i < p.getBewertung().length; i++) {
+                        b = b + p.getBewertung()[i] + "\n" + "\n";
+                    }
+                    txtaBewertung.setText(b);
                     btnEinkaufswagen.setEnabled(true);
+                    btnBewertung.setEnabled(true);
                 }
 
 
@@ -92,7 +105,7 @@ public class Suche extends JFrame {
                     if(Integer.parseInt(txtMenge.getText()) >= 0 && Integer.parseInt(txtMenge.getText()) <= Integer.parseInt(txtBestand.getText())){
                     einkaufswagen.addItem(get(listErgebnis, list1.getSelectedIndex()), Integer.parseInt(txtMenge.getText()));
                     } else showMessageDialog("Die Menge muss größer als 0 sein und zu unserem Lagerbestand passen!");
-                }else showMessageDialog("Die Menge muss eine Zahl sein!");
+                }else showMessageDialog("Die Menge muss eine natürliche Zahl sein!");
             }
         });
         btnBestellung.addActionListener(new ActionListener() {
@@ -104,7 +117,22 @@ public class Suche extends JFrame {
         btnAbmelden.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gui.displayAnmeldung(); //connection close
+                client.send("ABM");
+            }
+        });
+        btnBewertung.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(txtaBewertungschreiben.getText().equals("")) showMessageDialog("Um eine Bewertung abzuschicken, musst du erst einmal eine schreiben!");
+                else if(!Pruefer.checkField(txtaBewertungschreiben.getText())) showMessageDialog("Deine Bewertung konnte nicht abgeschickt werden, da mindestens eines " +
+                        "der folgenden Zeichen benutzt wurde: ':' '/' ';' ");
+                else{
+                    int produktNummer = list1.getSelectedIndex();
+                    String msg = "BEWERTUNG:" + get(listErgebnis, produktNummer).getArtikelid() + ":" + cbSterne.getSelectedItem().toString() + ":" + txtaBewertungschreiben.getText();
+                    client.send("BEWERTUNG:" + get(listErgebnis, produktNummer).getArtikelid() + ":" + cbSterne.getActionCommand() + txtaBewertungschreiben.getText());
+                    showMessageDialog("Bewertung abgeschckt!");
+                    client.send(letzeSuche);
+                }
             }
         });
     }
@@ -124,7 +152,9 @@ public class Suche extends JFrame {
         txtAvgBewertung.setText("");
         txtaBeschreibung.setText("");
         txtaBewertung.setText("");
+        txtaBewertungschreiben.setText("");
         btnEinkaufswagen.setEnabled(false);
+        btnBewertung.setEnabled(false);
 
     }
 
@@ -148,8 +178,8 @@ public class Suche extends JFrame {
     }
 
     public void displayErgebnis(List<Produkt> ergebnis){
+        resetInterface();
         this.listErgebnis = ergebnis;
-
 
         listProduktModel.removeAllElements();
         for(listErgebnis.toFirst();listErgebnis.hasAccess();listErgebnis.next()){

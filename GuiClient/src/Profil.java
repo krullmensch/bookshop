@@ -1,61 +1,66 @@
 import javax.swing.*;
-import javax.swing.text.DateFormatter;
-import javax.swing.text.DefaultFormatter;
-import javax.swing.text.DefaultFormatterFactory;
-import javax.swing.text.NumberFormatter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.FieldPosition;
-import java.text.NumberFormat;
-import java.text.ParsePosition;
-import java.util.Date;
 
-public class Registrierung extends JFrame {
+public class Profil extends JFrame {
 
     private ShopGUI gui;
     private Shopclient client;
-    private StateGUI state;
+    private String[] profil;
 
     private JPanel panel1;
 
     //components
     private JTextField txtEmail;
     private JTextField txtTel;
-    private JButton btnSendReg;
+    private JButton btnBearbeiten;
     private JTextField txtStrasse;
     private JTextField txtHsnr;
     private JTextField txtOrt;
     private JTextField txtPlz;
-    private JTextField txtRegBenutzer;
-    private JPasswordField txtRegPasswort;
+    private JTextField txtBenutzer;
+    private JPasswordField txtPasswort;
     private JTextField txtVorname;
     private JTextField txtNachname;
     private JComboBox cBoxGeschlecht;
     private JTextField txtGeburtstag;
 
-    public Registrierung(ShopGUI gui, Shopclient shopclient){
-        this.gui = gui;
-        this.client = shopclient;
+    public Profil(String[] profil){ //ShopGUI gui, Shopclient shopclient
+        //this.gui = gui;
+        //this.client = shopclient;
+        this.profil = profil;
         initialise();
 
+        //profil[0] = PROFIL
+        txtBenutzer.setText(profil[1]);
+        txtPasswort.setText(profil[2]);
+        txtVorname.setText(profil[3]);
+        txtNachname.setText(profil[4]);
+        txtGeburtstag.setText(profil[5]);
+        cBoxGeschlecht.setSelectedItem(profil[6]);
+        txtStrasse.setText(profil[7]);
+        txtHsnr.setText(profil[8]);
+        txtOrt.setText(profil[9]);
+        txtPlz.setText(profil[10]);
+        txtEmail.setText(profil[11]);
+        txtTel.setText(profil[12]);
 
-        btnSendReg.addActionListener(new ActionListener() {
+
+        btnBearbeiten.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(checkFields()){
-                    String msg = "REG:" + txtRegBenutzer.getText() + ":" + parsePasswort() + txtVorname.getText() + ":" + txtNachname.getText() + ":" +
+                    String msg = "PROFILEDIT:" + txtBenutzer.getText() + ":" + parsePasswort() + txtVorname.getText() + ":" + txtNachname.getText() + ":" +
                             txtGeburtstag.getText() + ":" + cBoxGeschlecht.getSelectedItem().toString() + ":" + txtStrasse.getText() + ":" +
                             txtHsnr.getText() + ":" + txtOrt.getText() + ":" + txtPlz.getText() + ":" + txtEmail.getText() + txtTel.getText();
                     client.send(msg);
-                    gui.displayAnmeldung(); //Fällt später weg
                 }
             }
         });
     }
 
     private void initialise() {
-        setTitle("Registrierung");
+        setTitle("Profil");
         setContentPane(panel1);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
@@ -63,7 +68,7 @@ public class Registrierung extends JFrame {
     }
 
     private Boolean checkFields(){
-        if(Pruefer.checkField(txtRegBenutzer.getText()) && !parsePasswort().equals("") && Pruefer.checkField(txtVorname.getText()) &&
+        if(Pruefer.checkField(txtBenutzer.getText()) && !parsePasswort().equals("") && Pruefer.checkField(txtVorname.getText()) &&
                 Pruefer.checkField(txtNachname.getText()) && Pruefer.checkField(txtGeburtstag.getText()) && Pruefer.checkField(txtStrasse.getText())
                 && Pruefer.isInteger(txtHsnr.getText()) && Pruefer.checkField(txtOrt.getText()) && Pruefer.isInteger(txtPlz.getText())
                 && Pruefer.emailCheck(txtEmail.getText()) && Pruefer.isInteger(txtTel.getText())){
@@ -78,8 +83,8 @@ public class Registrierung extends JFrame {
 
     private String parsePasswort(){
         String passwort = "";
-        for(int i = 0; i < txtRegPasswort.getPassword().length; i++){
-            passwort = passwort + txtRegPasswort.getPassword()[i];
+        for(int i = 0; i < txtPasswort.getPassword().length; i++){
+            passwort = passwort + txtPasswort.getPassword()[i];
         }
         return passwort;
     }

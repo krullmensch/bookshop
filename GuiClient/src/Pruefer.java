@@ -6,7 +6,12 @@ public class Pruefer {
     }
 
     private static boolean isAlphabetic(char c) {
-        String A = "a,b,c,d,e,g,f,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z";
+        String A = "a,b,c,d,e,g,f,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,ß,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,S,T,U,V,W,X,Y,Z,ä,ö,ü,Ä,Ö,Ü";
+        return A.indexOf(c) != -1;
+    }
+
+    private static boolean isIllegalChar(char c){
+        String A = ":,/,;";
         return A.indexOf(c) != -1;
     }
 
@@ -16,6 +21,17 @@ public class Pruefer {
             isInt = isInt & (s.charAt(i) >= '0') & (s.charAt(i) <= '9');
         }
         return isInt;
+    }
+
+    public static boolean checkField(String s){
+        if(s.equals("")) return false;
+        else {
+            boolean valid = true;
+            for (int i = 0; i < s.length(); i++) {
+                if(isIllegalChar(s.charAt(i))) valid = false;
+            }
+            return valid;
+        }
     }
 
 

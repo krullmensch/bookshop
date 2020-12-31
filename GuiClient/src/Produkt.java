@@ -10,14 +10,14 @@ public class Produkt {
     private String genre;
     private String sprache;
     private String beschreibung;
-    private String bewertung;
+    private String[] bewertung;
     private String altersfreigabe;
     private String lagerbestand;
     private String durschnitssbewertung;
 
 
     public Produkt(String artikelid, String titel, String autor, String erscheinungsdatum, String verlag, String isbn, String preis, String genre,
-                   String sprache, String beschreibung, String bewertung, String altersfreigabe, String lagerbestand, String durschnitssbewertung) {
+                   String sprache, String beschreibung, String[] bewertung, String altersfreigabe, String lagerbestand, String durschnitssbewertung) {
         this.artikelid = artikelid;
         this.titel = titel;
         this.autor = autor;
@@ -99,11 +99,11 @@ public class Produkt {
         this.beschreibung = beschreibung;
     }
 
-    public String getBewertung() {
+    public String[] getBewertung() {
         return bewertung;
     }
 
-    public void setBewertung(String bewertung) {
+    public void setBewertung(String[] bewertung) {
         this.bewertung = bewertung;
     }
 

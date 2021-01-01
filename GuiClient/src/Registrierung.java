@@ -13,9 +13,7 @@ import java.util.Date;
 
 public class Registrierung extends JFrame {
 
-    private ShopGUI gui;
     private Shopclient client;
-    private StateGUI state;
 
     private JPanel panel1;
 
@@ -34,8 +32,7 @@ public class Registrierung extends JFrame {
     private JComboBox cBoxGeschlecht;
     private JTextField txtGeburtstag;
 
-    public Registrierung(ShopGUI gui, Shopclient shopclient){
-        this.gui = gui;
+    public Registrierung(Shopclient shopclient){
         this.client = shopclient;
         initialise();
 
@@ -48,7 +45,6 @@ public class Registrierung extends JFrame {
                             txtGeburtstag.getText() + ":" + cBoxGeschlecht.getSelectedItem().toString() + ":" + txtStrasse.getText() + ":" +
                             txtHsnr.getText() + ":" + txtOrt.getText() + ":" + txtPlz.getText() + ":" + txtEmail.getText() + txtTel.getText();
                     client.send(msg);
-                    gui.displayAnmeldung(); //Fällt später weg
                 }
             }
         });
@@ -70,7 +66,8 @@ public class Registrierung extends JFrame {
             return true;
         }
         else{
-            showMessageDialog("Eingabe nicht korrekt!");
+            showMessageDialog("Eingabe nicht korrekt!" + "\n" + "Beachte dass, die Eingabefelder nicht leer seien dürfen und " + "\n" +
+                    "die Zeichen ':', '/' und ';' nicht in unserem Shop erlaubt sind.");
             return false;
         }
     }
@@ -89,9 +86,5 @@ public class Registrierung extends JFrame {
         JOptionPane.showMessageDialog(null, msg);
     }
 
-
-    public void printOut(String out){
-
-    }
 
 }

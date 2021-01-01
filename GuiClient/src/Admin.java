@@ -41,7 +41,8 @@ public class Admin extends JFrame {
     private JButton btnEntfernen;
     private JButton btnBearbeiten;
     private JButton btnAbmelden;
-    private JButton btnHinzu;
+    private JButton btnNeuerArtikel;
+    private JButton btnAdd;
 
 
     public Admin() {
@@ -95,8 +96,7 @@ public class Admin extends JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 int produktNummer = list1.getSelectedIndex();
-                if(produktNummer == -1) btnHinzu.setEnabled(true);
-                else if(produktNummer >= 0){
+                if(produktNummer >= 0){
                     Produkt p = get(listErgebnis, produktNummer);
                     txtTitel.setText(p.getTitel());
                     txtAuthor.setText(p.getAutor());
@@ -119,7 +119,8 @@ public class Admin extends JFrame {
 
                     btnEntfernen.setEnabled(true);
                     btnBearbeiten.setEnabled(true);
-                    btnHinzu.setEnabled(false);
+                    btnNeuerArtikel.setEnabled(true);
+                    btnAdd.setEnabled(false);
                 }
 
 
@@ -151,20 +152,26 @@ public class Admin extends JFrame {
 
             }
         });
-        btnHinzu.addActionListener(new ActionListener() {
+        btnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int produktnummer = list1.getSelectedIndex();
                 if(checkFieldsProdukt()){
-                    client.send("PRODUKTHINZU:"+get(listErgebnis, produktnummer).getArtikelid() + ":" + txtTitel.getText() + ":" + txtAuthor.getText() + ":"
+                    client.send("PRODUKTADD:" + txtTitel.getText() + ":" + txtAuthor.getText() + ":"
                             + txtErschienen.getText() + ":" + txtVerlag.getText() + ":" + txtISBN.getText() + ":" + txtGenre.getText() + ":" +
                             txtSprache.getText() + ":" + txtaBeschreibung.getText() + ":" + txtPreis.getText() + ":" + txtBestand.getText()); }
-                refreshSuche();
+            }
+        });
+        btnNeuerArtikel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                resetProduktansicht();
+                btnAdd.setEnabled(true);
+                btnNeuerArtikel.setEnabled(false);
             }
         });
     }
 
-    public void resetInterface(){
+    public void resetSuche(){
         listProduktModel.removeAllElements();
         txtTitel.setText("");
         txtAuthor.setText("");
@@ -179,19 +186,64 @@ public class Admin extends JFrame {
         txtAvgBewertung.setText("");
         txtaBeschreibung.setText("");
         txtaBewertung.setText("");
-        btnAlle.setEnabled(false);
-        btnHinzu.setEnabled(false);
+        btnAdd.setEnabled(false);
+        btnEntfernen.setEnabled(false);
         btnBearbeiten.setEnabled(false);
         //btn false
-
     }
+
+    public void resetProduktansicht(){
+        list1.setSelectedIndex(-1);
+        txtTitel.setText("");
+        txtAuthor.setText("");
+        txtErschienen.setText("");
+        txtISBN.setText("");
+        txtAlter.setText("");
+        txtGenre.setText("");
+        txtSprache.setText("");
+        txtVerlag.setText("");
+        txtPreis.setText("");
+        txtBestand.setText("");
+        txtAvgBewertung.setText("");
+        txtaBeschreibung.setText("");
+        txtaBewertung.setText("");
+        btnAdd.setEnabled(false);
+        btnEntfernen.setEnabled(false);
+        btnBearbeiten.setEnabled(false);
+        btnNeuerArtikel.setEnabled(true);
+    }
+
+    public void resetAnmeldung(){
+        listProduktModel.removeAllElements();
+        txtTitel.setText("");
+        txtAuthor.setText("");
+        txtErschienen.setText("");
+        txtISBN.setText("");
+        txtAlter.setText("");
+        txtGenre.setText("");
+        txtSprache.setText("");
+        txtVerlag.setText("");
+        txtPreis.setText("");
+        txtBestand.setText("");
+        txtAvgBewertung.setText("");
+        txtaBeschreibung.setText("");
+        txtaBewertung.setText("");
+        txtSuche.setText("");
+        btnSuchen.setEnabled(false);
+        btnAlle.setEnabled(false);
+        btnNeuerArtikel.setEnabled(false);
+        btnAdd.setEnabled(false);
+        btnAnmelden.setEnabled(false);
+        btnEntfernen.setEnabled(false);
+        btnBearbeiten.setEnabled(false);
+    }
+
 
     private Boolean checkFieldsAnm(){
         if(txtBenutzer.getText().equals("") && txtPasswort.getPassword().length == 0){
             showMessageDialog("Bitte gib Benutzername und Passwort ein!");
             return false;
-        }
-        else if(txtBenutzer.getText().equals("") ){
+        }else if(txtBenutzer.getText().equals("") ){
             showMessageDialog("Bitte gib deinen Benutzernamen ein!");
             return false;
         }else if(txtPasswort.getPassword().length == 0){
@@ -206,11 +258,12 @@ public class Admin extends JFrame {
     private Boolean checkFieldsProdukt(){
         if(Pruefer.checkField(txtTitel.getText()) && Pruefer.checkField(txtAuthor.getText()) && Pruefer.checkField(txtErschienen.getText())
                 && Pruefer.checkField(txtVerlag.getText()) && Pruefer.checkField(txtISBN.getText()) && Pruefer.checkField(txtGenre.getText())
-                && Pruefer.checkField(txtSprache.getText()) && Pruefer.checkField(txtaBeschreibung.getText()) && Pruefer.isInteger(txtPreis.getText())
+                && Pruefer.checkField(txtSprache.getText()) && Pruefer.checkField(txtaBeschreibung.getText()) && Pruefer.isPreis(txtPreis.getText())
                 && Pruefer.isInteger(txtBestand.getText())){
             return true;
         }else{
-            showMessageDialog("Eingabe nicht korrekt!");
+            showMessageDialog("Eingabe nicht korrekt!" + "\n" + "Beachte dass, die Eingabefelder nicht leer seien dürfen und " + "\n" +
+                    "die Zeichen ':', '/' und ';' nicht in unserem Shop erlaubt sind.");
             return false;
         }
     }
@@ -243,8 +296,7 @@ public class Admin extends JFrame {
     }
 
     public void displayErgebnis(List<Produkt> ergebnis){
-        resetInterface();
-        btnHinzu.setEnabled(true);
+        resetSuche();
         this.listErgebnis = ergebnis;
 
         listProduktModel.removeAllElements();
@@ -260,7 +312,7 @@ public class Admin extends JFrame {
 
     public void enableAnmeldung() {
         btnVerbinden.setEnabled(false);
-        btnAbmelden.setEnabled(true);
+        btnAnmelden.setEnabled(true);
         btnSuchen.setEnabled(false);
         btnAlle.setEnabled(false);
     }
@@ -270,7 +322,7 @@ public class Admin extends JFrame {
         btnAbmelden.setEnabled(true);
         btnSuchen.setEnabled(true);
         btnAlle.setEnabled(true);
-        btnHinzu.setEnabled(true);
+        btnNeuerArtikel.setEnabled(true);
     }
 
     public void refreshSuche() {

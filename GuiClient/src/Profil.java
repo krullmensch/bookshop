@@ -4,7 +4,6 @@ import java.awt.event.ActionListener;
 
 public class Profil extends JFrame {
 
-    private ShopGUI gui;
     private Shopclient client;
     private String[] profil;
 
@@ -25,13 +24,12 @@ public class Profil extends JFrame {
     private JComboBox cBoxGeschlecht;
     private JTextField txtGeburtstag;
 
-    public Profil(String[] profil){ //ShopGUI gui, Shopclient shopclient
-        //this.gui = gui;
+    public Profil(String[] profil){ //Shopclient shopclient
         //this.client = shopclient;
         this.profil = profil;
         initialise();
 
-        //profil[0] = PROFIL
+        //profil[0] = "PROFIL"
         txtBenutzer.setText(profil[1]);
         txtPasswort.setText(profil[2]);
         txtVorname.setText(profil[3]);
@@ -75,11 +73,11 @@ public class Profil extends JFrame {
             return true;
         }
         else{
-            showMessageDialog("Eingabe nicht korrekt!");
+            showMessageDialog("Eingabe nicht korrekt! Beachte dass, die Eingabefelder nicht leer seien dürfen und" +
+                    " die Zeichen ':', '/' und ';' nicht in unserem Shop erlaubt sind.");
             return false;
         }
     }
-
 
     private String parsePasswort(){
         String passwort = "";
@@ -89,14 +87,8 @@ public class Profil extends JFrame {
         return passwort;
     }
 
-
     public void showMessageDialog(String msg){
         JOptionPane.showMessageDialog(null, msg);
-    }
-
-
-    public void printOut(String out){
-
     }
 
 }

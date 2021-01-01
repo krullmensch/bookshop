@@ -15,8 +15,8 @@ public class Shopclient extends Client {
         String[] protokoll = msg.split(":");
         switch (protokoll[0]) {
             case "VERBUNDEN":
+                gui.showMessageDialog("Verbindung erfolgreich. Du kannst dich jetzt anmelden!");
                 gui.enableAnmeldung();
-                gui.printOut("Verbindung erfolgreich. Du kannst dich jetzt anmelden!");
                 break;
             case "ANMOK":
                 gui.showMessageDialog("Anmeldung erfolgreich!");

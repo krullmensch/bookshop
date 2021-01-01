@@ -61,11 +61,7 @@ public class Anmeldung extends JFrame {
     }
 
     private Boolean checkFields(){
-        if(txtBenutzer.getText().indexOf(':') != -1 || parsePasswort().indexOf(':') != -1){
-            showMessageDialog("Das Zeichen ':' ist keine gültige Eingabe!" );
-            return false;
-        }
-        else if(txtBenutzer.getText().equals("") && txtPasswort.getPassword().length == 0){
+        if(txtBenutzer.getText().equals("") && txtPasswort.getPassword().length == 0){
             showMessageDialog("Bitte gib Benutzername und Passwort ein!");
             return false;
         }
@@ -75,7 +71,13 @@ public class Anmeldung extends JFrame {
         }else if(txtPasswort.getPassword().length == 0){
             showMessageDialog("Bitte gib dein Passwort ein!");
             return false;
-        }else return true;
+
+        }else if(!Pruefer.checkField(txtBenutzer.getText()) || !Pruefer.checkField(parsePasswort())){
+            showMessageDialog("Eingabe nicht korrekt!" + "\n" + "Beachte dass, die Eingabefelder nicht leer seien dürfen und " + "\n" +
+                    "die Zeichen ':', '/' und ';' nicht in unserem Shop erlaubt sind.");
+            return false;
+        }
+        else return true;
     }
     private String parsePasswort(){
         String passwort = "";
@@ -88,11 +90,6 @@ public class Anmeldung extends JFrame {
 
     public void showMessageDialog(String msg){
         JOptionPane.showMessageDialog(null, msg);
-    }
-
-    public void printOut (String msg) {
-        txtOut.setText(msg);
-
     }
 
     public void enableAnmeldung() {

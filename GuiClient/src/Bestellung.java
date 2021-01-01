@@ -21,7 +21,6 @@ public class Bestellung extends JFrame {
     private JTextField txtMenge;
     private JTextField txtZsumme;
     private JTextArea txtaInfo;
-    private JLabel informationenLabel;
     private JTextField txtBestand;
     private JButton btnAbbrechen;
     private JButton btnLeeren;
@@ -48,10 +47,9 @@ public class Bestellung extends JFrame {
                     txtBestand.setText(p.getLagerbestand());
                     int zsumme = Integer.parseInt(get(einkaufswagen.getL(), produktNummer).getKey().getPreis()) *
                     get(einkaufswagen.getL(), produktNummer).getValue();
-                    txtZsumme.setText(String.valueOf(zsumme) + "€");
+                    txtZsumme.setText(zsumme + "€");
                     txtaInfo.setText(p.getTitel() + "\n" + p.getAutor() + "\n" + p.getErscheinungsdatum() + "\n" + p.getVerlag() + "\n" + p.getIsbn()
-                            + "\n" + p.getGenre()+ "\n"  + p.getSprache() + "\n" +
-                            p.getAltersfreigabe());
+                            + "\n" + p.getGenre()+ "\n"  + p.getSprache() + "\n" + "ab" + p.getAltersfreigabe() + "Jahren");
 
                     btnBearbeiten.setEnabled(true);
                     btnEntfernen.setEnabled(true);

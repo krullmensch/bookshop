@@ -14,7 +14,7 @@ public class ShopGUI {
 
     public ShopGUI() {
         state = StateGUI.ANMELDUNG;
-        anmeldung = new Anmeldung(this);
+        //anmeldung = new Anmeldung(this);
     }
 
 
@@ -32,7 +32,7 @@ public class ShopGUI {
     public void displayRegistrierung() {
         state = StateGUI.REGISTRIERUNG;
         anmeldung.dispose();
-        registrierung = new Registrierung(this, client);
+        registrierung = new Registrierung(client);
     }
 
     public void displayAnmeldung(){
@@ -56,10 +56,12 @@ public class ShopGUI {
             profil.dispose();
         }
         state = StateGUI.SUCHE;
-        suche = new Suche();
+        suche = new Suche(this, client);
     }
 
     public void displayBestellung(){
+        suche.dispose();
+
         state = StateGUI.BESTELLUNG;
         bestellung = new Bestellung(einkaufswagen);
     }
@@ -94,17 +96,6 @@ public class ShopGUI {
         }
     }
 
-    public void printOut(String out) {
-        switch (state) {
-            case ANMELDUNG:
-                anmeldung.printOut(out);
-                break;
-            case REGISTRIERUNG:
-                registrierung.printOut(out);
-                break;
-        }
-    }
-
     public void enableAnmeldung() {
         anmeldung.enableAnmeldung();
 
@@ -114,45 +105,62 @@ public class ShopGUI {
         einkaufswagen = new Einkaufswagen();
     }
 
-    public static void main(String[] args) {
-        //ShopGUI s = new ShopGUI();
+    public static void testGUI(String fenster){
+        ShopGUI shop = new ShopGUI();
+        Shopclient c = new Shopclient("127.0.0.1", 5555,shop);
 
-        //Suche suche = new Suche();
-        String [] protokoll = new String[3];
-        protokoll[0] = "ERGEBNIS";
-
-        //Ergebnis: P(100:Harry Potter:j.k. Rowlins:2001.2002)
-
-        protokoll[1] = "100/Harry Potter und der Stein der Weisen/J.K. Rowlins/20.01.2002/Cornelson/978-5472947/10/Fantasy/Deutsch/Erster Teil der Harry Potter Buchreihe/*****"
-                + "\n" +"Klasse Buch!;***" + "\n"+"War Okay!" +"/12/29/4,5";
-        protokoll[2] = "101" + "/" + "Fantastische Tierwesen" + "/" + "J.K. Rowlins" +"/"+  "03.08.2014"+"/" +"Cornelson"+"/" +"978-8432059"+"/"+ "15" +"/"+"Fantasy"+"/"+"Deutsch"+
-                "/"+"Spin-off der Harry Potter Buchreihe"+"/"+"**" + "\n" + "Hat mir nicht gefallen"+";" + "*****"+ "\n"+ "Mega super duper"+"/"+"12"+"/"
-                +"55"+"/"+"3,2";
+        String suchergebnis = "ERGEBNIS:100/Namen durcheinader wurschteln - So geht es richtig/Christian Eisentraut/20.08.2018/Kevinkatze Verlag/978-5472947/25/Lehrbuch/Deutsch/" +
+                "Wer einfache Namen auch total langweilig findet, für den ist 'Namen durcheinander wurschteln' genau das richtige. Hier erährst du wie mehrere Namen miteinander kombiniert werden" +
+                " und auch wie einfache langweilige Namen verbessert werden können./***** Marvus"
+                + "\n" +"Hat buchstäblich mein Leben verändert!;**** Hanja" + "\n"+"Ein must-read für Jeden mit einem Namen.;*** Lina" +"\n" +"Funktioniert mit meinem Namen nicht, ansonsten klasse!/6/9/4";
+        suchergebnis = suchergebnis + ":101/Die Pick-Up Verschwörung der OS Cafeteria/Christian Eisentraut/05.09.2020/Kevinkatze Verlag/978-79345045/15/Thriller/Deutsch/In dem Verschwörungsthriller " +
+                "deckt ein heldenhafter Informatiklehrer das düstere Geheimnis der Schulcafeteria rund um den Schokoriegel Pick-Up auf./***** Mighty Merl"
+                + "\n" +"Unfassbar spannendes Buch!;**** Ralle" + "\n"+"Die Auflösung am Ende war der absolute Hammer!" +"/18/38/4,5";
+        String[] ergebnisprotokoll = suchergebnis.split(":");
         List<Produkt> ergebnis = new List<>();
-        for (int i = 1; i < protokoll.length; i++) {
-            String[] p = protokoll[i].split("/");
-            String [] b = p[10].split(";");
+        for (int i = 1; i < ergebnisprotokoll.length; i++) {
+            String[] p = ergebnisprotokoll[i].split("/");
+            String[] b = p[10].split(";");
             ergebnis.append(new Produkt(p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7], p[8], p[9], b, p[11], p[12], p[13]));
         }
-        //suche.displayErgebnis(ergebnis);
-        Admin admin = new Admin();
-        admin.displayErgebnis(ergebnis);
 
-        Einkaufswagen en = new Einkaufswagen();
-        ergebnis.toFirst();
-        en.addItem(ergebnis.getContent(), 2);
-        ergebnis.next();
-        en.addItem(ergebnis.getContent(), 1);
-        //Bestellung b= new Bestellung(en);
+        switch (fenster) {
+            case "Anmeldung":
+                Anmeldung a = new Anmeldung(shop);
+                break;
+            case "Registrierung":
+                Registrierung r = new Registrierung(c);
+                break;
+            case "Suche":
+                Suche s = new Suche(shop,c);
+                s.displayErgebnis(ergebnis);
+                break;
+            case "Bestellung":
+                Einkaufswagen e = new Einkaufswagen();
+                ergebnis.toFirst();
+                e.addItem(ergebnis.getContent(), 2);
+                ergebnis.next();
+                e.addItem(ergebnis.getContent(), 1);
+                Bestellung b= new Bestellung(e);
+                break;
+            case "Profil":
+                String profilprotokoll = "PROFIL:Thom:124:Thomas:Edison:08.01.2002:Männlich:Alter Markt:2:Herford:32049:tj@itiger.de:0152 5682639";
+                String []profil = profilprotokoll.split(":");
+                Profil p = new Profil(profil);
+                break;
+            case "Admin":
+                Admin admin = new Admin();
+                admin.enableAnmeldung();
+                admin.enableSuche();
+                admin.displayErgebnis(ergebnis);
+                break;
 
-        String pro = "PROFIL:Thom:124:Thomas:Edison:08.01.2002:Männlich:Alter Markt:2:Herford:32049:tj@itiger.de:0152 5682639";
-        String []profil = pro.split(":");
-
-        //Profil p = new Profil(profil);
+        }
+    }
 
 
-
-
+    public static void main(String[] args) {
+        ShopGUI.testGUI("Registrierung");
     }
 
 

@@ -5,7 +5,7 @@
       <xy x="11" y="46" width="618" height="431"/>
     </constraints>
     <properties>
-      <preferredSize width="650" height="400"/>
+      <preferredSize width="850" height="500"/>
     </properties>
     <border type="none"/>
     <children>
@@ -85,7 +85,7 @@
                   <editable value="false"/>
                 </properties>
               </component>
-              <component id="51081" class="javax.swing.JLabel" binding="informationenLabel" default-binding="true">
+              <component id="51081" class="javax.swing.JLabel" default-binding="true">
                 <constraints>
                   <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="9" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="114" height="16"/>
@@ -98,11 +98,13 @@
               <component id="34295" class="javax.swing.JTextArea" binding="txtaInfo">
                 <constraints>
                   <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="8" fill="2" indent="0" use-parent-layout="false">
-                    <preferred-size width="200" height="50"/>
+                    <preferred-size width="600" height="50"/>
                   </grid>
                 </constraints>
                 <properties>
                   <editable value="false"/>
+                  <lineWrap value="true"/>
+                  <wrapStyleWord value="true"/>
                 </properties>
               </component>
               <component id="16df1" class="javax.swing.JLabel">

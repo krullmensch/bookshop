@@ -1,3 +1,5 @@
+import datenbankklassen.MySQL.DatabaseConnector;
+
 import java.util.Date;
 
 public class Anfragen {
@@ -16,7 +18,7 @@ public class Anfragen {
     }
 
     public static String userBearbeiten(String username, String kategorie, String inhalt){
-        String userBearbeiten = "UPDATE User SET" + kategorie + "=" + inhalt + " WHERE Username=" + username;
+        String userBearbeiten = "UPDATE User SET" + kategorie + "=" + inhalt + "WHERE Username=" + username;
         return userBearbeiten;
     }
 

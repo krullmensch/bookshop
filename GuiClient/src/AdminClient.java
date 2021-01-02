@@ -23,7 +23,6 @@ public class AdminClient extends Client {
                 break;
             case "ANMOK":
                 admin.showMessageDialog("Anmeldung erfolgreich!");
-                admin.resetInterface();
                 admin.enableSuche();
                 break;
             case "ANMERROR":
@@ -31,6 +30,10 @@ public class AdminClient extends Client {
                 break;
             case "ANMERROR1":
                 admin.showMessageDialog("Benutzername und Passwort stimmen nicht überein!");
+            case "ABMOK":
+                admin.showMessageDialog("Du wurdest abgemeldet!");
+                admin.resetAnmeldung();
+                break;
             case "ERGEBNIS":
                 List<Produkt> ergebnis = new List<>();
                 for (int i = 1; i < protokoll.length; i++) {
@@ -44,11 +47,18 @@ public class AdminClient extends Client {
                 admin.showMessageDialog("Es wurden keine Artikel mit deiner Suchanfrage gefunden!");
                 break;
             case "EDITOK":
-                admin.showMessageDialog("Deine Bearbeitung wurde in der Datenbank gespeichert");
+                admin.showMessageDialog("Deine Bearbeitung wurde in der Datenbank gespeichert!");
                 admin.refreshSuche();
                 break;
             case "EDITERROR":
-                admin.showMessageDialog("Deine Bearbeitung ist fehlgeschlagen");
+                admin.showMessageDialog("Deine Bearbeitung ist fehlgeschlagen!");
+                break;
+            case "ADDOK":
+                admin.showMessageDialog("Der neue Artikel wurde in der Datenbank gespeichert!");
+                admin.resetProduktansicht();
+                break;
+            case "ADDERROR":
+                admin.showMessageDialog("Das Hinzufügen von dem neuen Artikels ist fehlgeschlagen!");
                 break;
 
         }

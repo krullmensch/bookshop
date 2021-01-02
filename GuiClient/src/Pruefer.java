@@ -1,18 +1,23 @@
 public class Pruefer {
 
     private static boolean isDigit(char c) {
-        String N = "0,1,2,3,4,5,6,7,8,9";
+        String N = "0123456789";
         return N.indexOf(c) != -1;
     }
 
     private static boolean isAlphabetic(char c) {
-        String A = "a,b,c,d,e,g,f,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,ß,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,S,T,U,V,W,X,Y,Z,ä,ö,ü,Ä,Ö,Ü";
+        String A = "abcdegfhijklmnopqrstuvwxyzßABCDEFGHIJKLMNOPSTUVWXYZäöüÄÖÜ";
         return A.indexOf(c) != -1;
     }
 
     private static boolean isIllegalChar(char c){
-        String A = ":,/,;";
+        String A = ":/;";
         return A.indexOf(c) != -1;
+    }
+
+    public static boolean isPreis(String s){
+        if(isInteger(s) || isDouble(s)) return true;
+        else return false;
     }
 
     public static boolean isInteger(String s) {
@@ -21,6 +26,21 @@ public class Pruefer {
             isInt = isInt & (s.charAt(i) >= '0') & (s.charAt(i) <= '9');
         }
         return isInt;
+    }
+
+    private static boolean isDouble(String s) {
+        boolean isFloat = true;
+        if (s.indexOf('.') == -1) return false;
+        else {
+            int posKomm = s.indexOf('.'); //die erste Position eines Kommas wird gespeichert
+            for (int i = 0; i < s.length(); i++) {
+                if (i < posKomm || i > posKomm && s.charAt(i) != '.') {
+                    isFloat = isFloat & (s.charAt(i) >= '0') & (s.charAt(i) <= '9');
+                } else if (i == posKomm) isFloat = true;
+                else return false;
+            }
+            return isFloat;
+        }
     }
 
     public static boolean checkField(String s){

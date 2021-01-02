@@ -21,8 +21,8 @@ public class Anmeldung extends JFrame {
     private JTextArea txtOut;
 
 
-    public Anmeldung(ShopGUI gui){
-        this.gui = gui;
+    public Anmeldung(ShopGUI g){
+        this.gui = g;
 
         initialise();
 

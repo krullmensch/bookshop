@@ -27,7 +27,9 @@ public class Bestellung extends JFrame {
     private JButton btnBearbeiten;
     private JButton btnEntfernen;
 
-    public Bestellung(Einkaufswagen e) {
+    public Bestellung(ShopGUI g, Shopclient shopclient, Einkaufswagen e) {
+        this.gui = g;
+        this.client = shopclient;
         this.einkaufswagen = e;
 
         initialise();

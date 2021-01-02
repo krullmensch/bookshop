@@ -14,6 +14,7 @@ public class ShopGUI {
 
     public ShopGUI() {
         state = StateGUI.ANMELDUNG;
+        einkaufswagen = new Einkaufswagen();
         //anmeldung = new Anmeldung(this);
     }
 
@@ -22,7 +23,11 @@ public class ShopGUI {
         client = c;
     }
 
-    public void referenceEinkaufswagen(Einkaufswagen e){einkaufswagen = e;}
+    public void referenceEinkaufswagen(Einkaufswagen e){this.einkaufswagen = e;}
+
+    public Einkaufswagen getEinkaufswagen(){
+        return einkaufswagen;
+    }
 
     public StateGUI getState(){
         return state;
@@ -60,10 +65,11 @@ public class ShopGUI {
     }
 
     public void displayBestellung(){
+        if(state == StateGUI.SUCHE)
         suche.dispose();
 
         state = StateGUI.BESTELLUNG;
-        bestellung = new Bestellung(einkaufswagen);
+        bestellung = new Bestellung(this, client, einkaufswagen);
     }
 
     public void displayErgebnis(List<Produkt> ergebnis) {
@@ -72,7 +78,7 @@ public class ShopGUI {
 
     public void displayProfil(String[] p) {
         state = StateGUI.PROFIL;
-        profil = new Profil(p);
+        profil = new Profil(client, p);
     }
 
 
@@ -105,9 +111,8 @@ public class ShopGUI {
         einkaufswagen = new Einkaufswagen();
     }
 
-    public static void testGUI(String fenster){
-        ShopGUI shop = new ShopGUI();
-        Shopclient c = new Shopclient("127.0.0.1", 5555,shop);
+    public void testGUI(String fenster){
+        client = new Shopclient("127.0.0.1", 5555,this);
 
         String suchergebnis = "ERGEBNIS:100/Namen durcheinader wurschteln - So geht es richtig/Christian Eisentraut/20.08.2018/Kevinkatze Verlag/978-5472947/25/Lehrbuch/Deutsch/" +
                 "Wer einfache Namen auch total langweilig findet, für den ist 'Namen durcheinander wurschteln' genau das richtige. Hier erährst du wie mehrere Namen miteinander kombiniert werden" +
@@ -126,27 +131,20 @@ public class ShopGUI {
 
         switch (fenster) {
             case "Anmeldung":
-                Anmeldung a = new Anmeldung(shop);
+                anmeldung = new Anmeldung(this);
                 break;
             case "Registrierung":
-                Registrierung r = new Registrierung(c);
+                registrierung = new Registrierung(client);
                 break;
-            case "Suche":
-                Suche s = new Suche(shop,c);
-                s.displayErgebnis(ergebnis);
-                break;
-            case "Bestellung":
-                Einkaufswagen e = new Einkaufswagen();
-                ergebnis.toFirst();
-                e.addItem(ergebnis.getContent(), 2);
-                ergebnis.next();
-                e.addItem(ergebnis.getContent(), 1);
-                Bestellung b= new Bestellung(e);
+            case "Suche und Bestellung":
+                state = StateGUI.SUCHE;
+                suche = new Suche(this,client);
+                suche.displayErgebnis(ergebnis);
                 break;
             case "Profil":
-                String profilprotokoll = "PROFIL:Thom:124:Thomas:Edison:08.01.2002:Männlich:Alter Markt:2:Herford:32049:tj@itiger.de:0152 5682639";
-                String []profil = profilprotokoll.split(":");
-                Profil p = new Profil(profil);
+                String profilString = "PROFIL:Thom:124:Thomas:Edison:08.01.2002:Männlich:Alter Markt:2:Herford:32049:tj@itiger.de:0152 5682639";
+                String []profilprotokoll = profilString.split(":");
+                profil = new Profil(client, profilprotokoll);
                 break;
             case "Admin":
                 Admin admin = new Admin();
@@ -160,7 +158,8 @@ public class ShopGUI {
 
 
     public static void main(String[] args) {
-        ShopGUI.testGUI("Registrierung");
+        ShopGUI s = new ShopGUI();
+        s.testGUI("Suche und Bestellung");
     }
 
 

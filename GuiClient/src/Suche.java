@@ -46,14 +46,11 @@ public class Suche extends JFrame {
     public Suche(ShopGUI g, Shopclient shopclient) {
         this.gui = g;
         this.client = shopclient;
+        this.einkaufswagen = gui.getEinkaufswagen();
         initialise();
+
         listProduktModel = new DefaultListModel<>();
         list1.setModel(listProduktModel);
-
-        if (einkaufswagen == null) {
-            einkaufswagen = new Einkaufswagen();
-            gui.referenceEinkaufswagen(einkaufswagen);
-        }
 
         btnSuche.addActionListener(new ActionListener() {
             @Override

@@ -24,8 +24,8 @@ public class Profil extends JFrame {
     private JComboBox cBoxGeschlecht;
     private JTextField txtGeburtstag;
 
-    public Profil(String[] profil){ //Shopclient shopclient
-        //this.client = shopclient;
+    public Profil(Shopclient shopclient, String[] profil){ //Shopclient shopclient
+        this.client = shopclient;
         this.profil = profil;
         initialise();
 

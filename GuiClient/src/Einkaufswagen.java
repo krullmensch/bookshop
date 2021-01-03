@@ -2,7 +2,6 @@ import datenstrukturklassen.linear.List;
 
 public class Einkaufswagen {
     private List<Paar<Produkt, Integer>> l;
-    private int Summe;
 
     public Einkaufswagen() {
         l = new List<>();
@@ -28,7 +27,7 @@ public class Einkaufswagen {
     }
 
     public void addItem(Produkt p, int i) {
-        if (getItem(p)) {
+        if (getItem(p)) { //Wenn es das Produkt bereits im Einkaufswagen gibt, wird die Menge um i erhöht
             l.getContent().setValue(l.getContent().getValue() + i);
         } else {
             l.append(new Paar<>(p, i));
@@ -46,8 +45,6 @@ public class Einkaufswagen {
 
     }
 
-
-
     public void editItem(Produkt p, int i){
         l.toFirst();
         while (l.hasAccess() && l.getContent().getKey() != p) {
@@ -55,14 +52,13 @@ public class Einkaufswagen {
         }
         if (l.hasAccess()) {
             l.getContent().setValue(i);
-            if(l.getContent().getValue() <= 0){
+            if(l.getContent().getValue() <= 0){ //Sollte die Menge auf 0 oder kleiner gesetzt worden sein, wird der Artikel entfernt
                 l.remove();
             }
         }
-
     }
 
-    public int getSumme() {
+    public int getSumme() { //Errechnet die Summe aus allen Artikel im Einkaufswagen
         int summe = 0;
         for (l.toFirst(); l.hasAccess(); l.next()) {
             summe = summe + (Integer.parseInt(l.getContent().getKey().getPreis()) * l.getContent().getValue());

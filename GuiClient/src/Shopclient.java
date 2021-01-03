@@ -24,21 +24,20 @@ public class Shopclient extends Client {
                 break;
             case "ABMOK":
                 gui.showMessageDialog("Du bist nun abgemeldet!");
+                gui.resetEinkaufswagen();
                 gui.displayAnmeldung();
                 break;
             case "ANMERROR":
-                gui.showMessageDialog("Anmeldung fehlgeschlagen!");
-                break;
-            case "ANMERROR1":
                 gui.showMessageDialog("Benutzername und Passwort stimmen nicht überein!" + "\n" +
-                        "Prpbier es erneut oder erstelle ein neues Konto.");
+                        "Prpbiere es erneut oder erstelle ein neues Konto.");
                 break;
             case "REGOK":
                 gui.showMessageDialog("Registrierung erfolgreich!");
                 gui.displayAnmeldung();
                 break;
             case "REGERROR":
-                gui.showMessageDialog("Registrierung fehlgeschlagen!");
+                gui.showMessageDialog("Ein*e Benutzer*in mit dem Usernamen " + protokoll[1] + " existiert bereits." + "\n"+
+                        "Bitte wählen Sie einen anderen Usernamen.");
                 break;
             case "PROFIL":
                 gui.displayProfil(protokoll);
@@ -50,7 +49,7 @@ public class Shopclient extends Client {
             case "PROFILERROR":
                 gui.showMessageDialog("Profilbearbeitung fehlgeschlagen");
                 break;
-            case "ERGEBNIS":
+            case "ERGEBNISSE":
                 List<Produkt> ergebnis = new List<>();
                 for (int i = 1; i < protokoll.length; i++) {
                     String[] p = protokoll[i].split("/");
@@ -59,7 +58,7 @@ public class Shopclient extends Client {
                 }
                 gui.displayErgebnis(ergebnis);
                 break;
-            case "SUCHERROR1":
+            case "SUCHERROR":
                 gui.showMessageDialog("Es wurden keine Artikel mit deiner Suchanfrage gefunden!");
                 break;
             case "BESTELLOK":
@@ -70,8 +69,6 @@ public class Shopclient extends Client {
             case "BESTELLERROR":
                 gui.showMessageDialog("Bestellung fehlgeschlagen");
                 break;
-
-
             default:
                 throw new IllegalStateException("Unexpected value: " + protokoll[0]);
         }

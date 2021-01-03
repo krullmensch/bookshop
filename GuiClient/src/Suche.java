@@ -49,7 +49,7 @@ public class Suche extends JFrame {
         this.einkaufswagen = gui.getEinkaufswagen();
         initialise();
 
-        listProduktModel = new DefaultListModel<>();
+        listProduktModel = new DefaultListModel<>(); //ermöglicht die Darstellung in JList
         list1.setModel(listProduktModel);
 
         btnSuche.addActionListener(new ActionListener() {
@@ -65,12 +65,17 @@ public class Suche extends JFrame {
 
             }
         });
+        /**
+         * Wird aufgerufen falls ein Element der Liste ausgewält wurde,
+         * setzt die Textfelder auf die Informationen des ausgewählten Produkts und
+         * ermöglicht die Funktion eine Artikel in den Einkaufswagen zu legen.
+         */
         list1.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 int produktNummer = list1.getSelectedIndex();
                 if (produktNummer >= 0) {
-                    Produkt p = get(listErgebnis, produktNummer);
+                    Produkt p = get(listErgebnis, produktNummer); //Liefert das Produkt mit der entprechenden Produktnummer in der Liste
                     lbTitel.setText(p.getTitel());
                     txtAuthor.setText(p.getAutor());
                     txtErschienen.setText(p.getErscheinungsdatum());
@@ -110,19 +115,19 @@ public class Suche extends JFrame {
         btnProfil.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                client.send("PROFIL");
+                client.send("PROFIL"); //Fordert vom Server das Profil an
             }
         });
         btnBestellung.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gui.displayBestellung();
+                gui.displayBestellung(); //öffnet das Bestellfenster
             }
         });
         btnAbmelden.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                client.send("ABM");
+                client.send("ABM"); //Sendet eine Nachricht an den Server, dass der User sich abmelden möchte
             }
         });
         btnBewertung.addActionListener(new ActionListener() {
@@ -146,7 +151,7 @@ public class Suche extends JFrame {
         });
     }
 
-    private void resetSuche() {
+    private void resetSuche() { //setzt das Fenster zurück auf den Zustand der Erstellung
         listProduktModel.removeAllElements();
         lbTitel.setText("");
         txtAuthor.setText("");
@@ -184,6 +189,9 @@ public class Suche extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Fügt der JListe die Titelnamen der Ergebnisliste hinzu.
+     */
     public void displayErgebnis(List<Produkt> ergebnis) {
         resetSuche();
         this.listErgebnis = ergebnis;

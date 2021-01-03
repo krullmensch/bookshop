@@ -36,7 +36,9 @@ public class Registrierung extends JFrame {
         this.client = shopclient;
         initialise();
 
-
+        /**
+         * Sendet die Registrierung falls vollständig an den Server
+         */
         btnSendReg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

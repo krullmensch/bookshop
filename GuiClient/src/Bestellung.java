@@ -38,6 +38,11 @@ public class Bestellung extends JFrame {
 
         displayEinkaufswagen();
 
+        /**
+         * Wird aufgerufen falls ein Element der Liste ausgewält wurde,
+         * setzt das Informationsfeld auf die Informationen des ausgewählten Produkts und
+         * ermöglicht den Einkaufswagen zu bearbeiten und den ausgewählten Artikel zu entfernen.
+         */
         list1.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -60,22 +65,29 @@ public class Bestellung extends JFrame {
                 }
             }
         });
-        btnAbbrechen.addActionListener(new ActionListener() {
+        btnAbbrechen.addActionListener(new ActionListener() { //öffnet das Suchfenster
             @Override
             public void actionPerformed(ActionEvent e) {
                 gui.displaySuche();
             }
         });
+        /**
+         * Entfernt den ausgewählten Artikel, resetted das Bestellfenster und zeigt
+         * den bearbeiteten Einkaufswagen an
+         */
         btnEntfernen.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int produktnummer = list1.getSelectedIndex();
                 einkaufswagen.removeItem(get(einkaufswagen.getL(), produktnummer));
-                resetInterface();
+                resetBestellung();
                 displayEinkaufswagen();
 
             }
         });
+        /**
+         * Bearbeitet falls möglich den ausgewählten Artikel und zeigt den bearbeiteten Einkaufswagen an
+         */
         btnBearbeiten.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -83,7 +95,7 @@ public class Bestellung extends JFrame {
                 if(Pruefer.isInteger(txtMenge.getText()) && Integer.parseInt(txtBestand.getText()) > -1){
                     if(Integer.parseInt(txtMenge.getText()) == 0 ) {
                         einkaufswagen.removeItem(get(einkaufswagen.getL(), produktnummer));
-                        resetInterface();
+                        resetBestellung();
                         displayEinkaufswagen();
                     }else if(Integer.parseInt(txtMenge.getText()) < Integer.parseInt(txtBestand.getText())){
                         einkaufswagen.editItem(get(einkaufswagen.getL(), list1.getSelectedIndex()).getKey(), Integer.parseInt(txtMenge.getText()));
@@ -93,15 +105,22 @@ public class Bestellung extends JFrame {
                 }else showMessageDialog("Die Menge muss eine natürliche Zahl sein!");
             }
         });
+        /**
+         * Entfernt alle Artikel aus dem Einkaufswagen und zeigt den leeren Einkaufswagen an
+         */
         btnLeeren.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 einkaufswagen.clearList();
                 listEinkaufswagenModel.removeAllElements();
-                resetInterface();
+                resetBestellung();
                 displayEinkaufswagen();
             }
         });
+        /**
+         * Sendet eine Nachricht an den Server, mit der Summe, den Artikelnummern des Einkaufswagen und der Menge, um
+         * eine Bestellung zu machen.
+         */
         btnBestellen.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -129,7 +148,7 @@ public class Bestellung extends JFrame {
         setVisible(true);
     }
 
-    private void resetInterface(){
+    private void resetBestellung(){
         list1.setSelectedIndex(-1);
         txtPreis.setText("");
         txtMenge.setText("");
@@ -154,10 +173,14 @@ public class Bestellung extends JFrame {
         return l.getContent();
     }
 
+    /**
+     * Falls der Einkaufswagen nicht leer ist, fügt die Methode der JListe die Titelnamen des Einkaufswagen hinzu
+     * und zeigt die berechnete Summe des Einkaufswagens an.
+     */
     public void displayEinkaufswagen() {
         if (einkaufswagen.isEmpty()){
             showMessageDialog("Dein Einkaufswagen ist leer!");
-            resetInterface();
+            resetBestellung();
         }
         else {
             List<Paar<Produkt, Integer>> en = einkaufswagen.getL();

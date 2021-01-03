@@ -152,6 +152,9 @@ public class Admin extends JFrame {
 
             }
         });
+        /**
+         * Übermittelt dem Server die Produktinformationen des neuen Artikel falls vollständig
+         */
         btnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -161,6 +164,9 @@ public class Admin extends JFrame {
                             txtSprache.getText() + ":" + txtaBeschreibung.getText() + ":" + txtPreis.getText() + ":" + txtBestand.getText()); }
             }
         });
+        /**
+         * Setzt die Eingabefelde der Produktinformationen zurück und ist die Vorraussetzung dafür einen neuen Artikel zu erstellen
+         */
         btnNeuerArtikel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -1,5 +1,9 @@
 public class Produkt {
 
+    /**
+     * Eine Klasse die nur aus Getter und Setter besteht, um die Produktinformationen abzufragen.
+     */
+
     private String artikelid;
     private String titel;
     private String autor;

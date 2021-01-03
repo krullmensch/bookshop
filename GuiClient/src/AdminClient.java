@@ -26,15 +26,13 @@ public class AdminClient extends Client {
                 admin.enableSuche();
                 break;
             case "ANMERROR":
-                admin.showMessageDialog("Anmeldung fehlgeschlagen!");
-                break;
-            case "ANMERROR1":
                 admin.showMessageDialog("Benutzername und Passwort stimmen nicht überein!");
+                break;
             case "ABMOK":
                 admin.showMessageDialog("Du wurdest abgemeldet!");
                 admin.resetAnmeldung();
                 break;
-            case "ERGEBNIS":
+            case "ERGEBNISSE":
                 List<Produkt> ergebnis = new List<>();
                 for (int i = 1; i < protokoll.length; i++) {
                     String[] p = protokoll[i].split("/");

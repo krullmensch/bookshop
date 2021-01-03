@@ -178,7 +178,7 @@
                           </grid>
                         </constraints>
                         <properties>
-                          <text value="Verbinde dich mit unserem Buchshop, &#10;indem du eine Server IP und einen Server Port eigibst!&#10;Beachte das die Zeichen ':', '/' und ';' &#10;nicht in unserem Shop benutzt werden dürfen."/>
+                          <text value="Verbinde dich mit unserem Buchshop, &#10;indem du eine Server IP und einen Server Port eingibst!&#10;Beachte das die Zeichen ':', '/' und ';' &#10;nicht in unserem Shop benutzt werden dürfen."/>
                         </properties>
                       </component>
                       <hspacer id="aefb6">

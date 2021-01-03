@@ -12,10 +12,15 @@ public class ShopGUI {
     private Profil profil;
     private Einkaufswagen einkaufswagen;
 
+    /**
+     * Bei der Erstellung eines ShopGUI-Objekts, wird ein leerer Einkaufswagen erstellt
+     * und das Anmeldefenster wird geöffnet, sodass der Benutzter eine Verbindung zum Server herstellen kann
+     * und sich anschließend anmelden kann.
+     */
     public ShopGUI() {
         state = StateGUI.ANMELDUNG;
         einkaufswagen = new Einkaufswagen();
-        //anmeldung = new Anmeldung(this);
+        anmeldung = new Anmeldung(this);
     }
 
 
@@ -23,17 +28,16 @@ public class ShopGUI {
         client = c;
     }
 
-    public void referenceEinkaufswagen(Einkaufswagen e){this.einkaufswagen = e;}
-
     public Einkaufswagen getEinkaufswagen(){
         return einkaufswagen;
     }
 
-    public StateGUI getState(){
-        return state;
-    }
 
-
+    /**
+     * Die display-Methoden erstellen das enstprechende Fenster und prüfen den Zustand,
+     * um mögliche offene Fenster zu schließen.
+     * Danach setzten die den Zustand auf das neugeöffnete Fenster.
+     */
     public void displayRegistrierung() {
         state = StateGUI.REGISTRIERUNG;
         anmeldung.dispose();
@@ -114,7 +118,7 @@ public class ShopGUI {
     public void testGUI(String fenster){
         client = new Shopclient("127.0.0.1", 5555,this);
 
-        String suchergebnis = "ERGEBNIS:100/Namen durcheinader wurschteln - So geht es richtig/Christian Eisentraut/20.08.2018/Kevinkatze Verlag/978-5472947/25/Lehrbuch/Deutsch/" +
+        String suchergebnis = "ERGEBNISSE:100/Namen durcheinader wurschteln - So geht es richtig/Christian Eisentraut/20.08.2018/Kevinkatze Verlag/978-5472947/25/Lehrbuch/Deutsch/" +
                 "Wer einfache Namen auch total langweilig findet, für den ist 'Namen durcheinander wurschteln' genau das richtige. Hier erährst du wie mehrere Namen miteinander kombiniert werden" +
                 " und auch wie einfache langweilige Namen verbessert werden können./***** Marvus"
                 + "\n" +"Hat buchstäblich mein Leben verändert!;**** Hanja" + "\n"+"Ein must-read für Jeden mit einem Namen.;*** Lina" +"\n" +"Funktioniert mit meinem Namen nicht, ansonsten klasse!/6/9/4";
@@ -136,7 +140,7 @@ public class ShopGUI {
             case "Registrierung":
                 registrierung = new Registrierung(client);
                 break;
-            case "Suche und Bestellung":
+            case "Suche und Bestellung": //Hier kann mit dem Button Bestellung zur Bestellansicht gewechselt werden
                 state = StateGUI.SUCHE;
                 suche = new Suche(this,client);
                 suche.displayErgebnis(ergebnis);
@@ -159,7 +163,16 @@ public class ShopGUI {
 
     public static void main(String[] args) {
         ShopGUI s = new ShopGUI();
-        s.testGUI("Suche und Bestellung");
+        //s.testGUI("Suche und Bestellung");
+        /**
+         * Mit der Methode testGUI kann neben dem Anmeldungsfenster jedes Fenster geöffnet werden.
+         * Denn die Funktionen, die den Austausch mit dem Server benötigen funktionieren noch nicht, da es keine Anbindung
+         * an eine Datenbank gibt.
+         * Hier kann jedoch bereits die Funktionen des Einkaufswagens ausgetestet werden, das Wechseln von Fenstern, das Prüfen von Texteingabe
+         * das Freigeben und Deaktivieren von Button, die Umwandlung von Protokollnachrichten in Listen mit Produktobjekten und ihre Darstelleung und
+         * die Umwandlung von Protokollnachrichten zur einer Profilansicht
+         */
+
     }
 
 

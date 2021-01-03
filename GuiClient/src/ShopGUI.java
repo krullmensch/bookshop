@@ -168,7 +168,7 @@ public class ShopGUI {
          * Mit der Methode testGUI kann neben dem Anmeldungsfenster jedes Fenster geöffnet werden.
          * Denn die Funktionen, die den Austausch mit dem Server benötigen funktionieren noch nicht, da es keine Anbindung
          * an eine Datenbank gibt.
-         * Hier kann jedoch bereits die Funktionen des Einkaufswagens ausgetestet werden, das Wechseln von Fenstern, das Prüfen von Texteingabe
+         * Hier kann jedoch bereits die Funktionen des Einkaufswagens ausgetestet werden, das Wechseln von Fenstern, das Prüfen der Texteingabe
          * das Freigeben und Deaktivieren von Button, die Umwandlung von Protokollnachrichten in Listen mit Produktobjekten und ihre Darstelleung und
          * die Umwandlung von Protokollnachrichten zur einer Profilansicht
          */
